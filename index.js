@@ -14,6 +14,7 @@ var express = require('express')
 	, fs = require('fs')
 ;
 
+var server = http.createServer(app)
 var app = express()
 	, dbUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1/ontrack'
 	, port = parseInt(process.env.PORT || '8080')
@@ -25,20 +26,14 @@ app.get('/home', (req, res, next) => {
 	res.sendFile(filePath);
 });
 
-app.use(function(err, req, res, next) {
-	res.status(err.status ? 500 : 404);
-	res.send(err);
-});
-
 console.log('Listening to port');
-server.on('listening', () => {
-	console.log('testing');
-	var addr = server.address()
-		, bind = typeof addr === 'string'
-			? 'pipe ' + addr
-			: 'port ' + addr.port
-	;
+	server.on('listening', () => {
+		console.log('testing');
+		var addr = server.address()
+			, bind = typeof addr === 'string'
+				? 'pipe ' + addr
+				: 'port ' + addr.port
+		;
 	console.log('Listening on ' + bind);
 	});
 	server.listen(port);
-});
