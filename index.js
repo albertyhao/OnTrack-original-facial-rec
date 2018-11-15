@@ -24,21 +24,3 @@ app.get('/home', (req, res, next) => {
 	var filePath = path.join(__dirname, './home.html')
 	res.sendFile(filePath);
 });
-
-app.use(function(err, req, res, next) {
-	res.status(err.status ? 500 : 404);
-	res.send(err);
-});
-
-console.log('Listening to port');
-server.on('listening', () => {
-	console.log('testing');
-	var addr = server.address()
-		, bind = typeof addr === 'string'
-			? 'pipe ' + addr
-			: 'port ' + addr.port
-	;
-	console.log('Listening on ' + bind);
-	});
-	server.listen(port);
-});
