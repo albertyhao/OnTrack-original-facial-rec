@@ -15,7 +15,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/home', (req, res, next) => {
+app.get('/', (req, res, next) => {
 	console.log('home')
 	var filePath = path.join(__dirname, './home.html')
 	res.sendFile(filePath);
