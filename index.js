@@ -33,8 +33,8 @@ app.get('/settings', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
-app.get('/sidebar.css', (req, res, next) => {
-	var filePath = path.join(__dirname, './sidebar.css')
+app.get('/navbar.css', (req, res, next) => {
+	var filePath = path.join(__dirname, './navbar.css')
 	res.sendFile(filePath);
 })
 
