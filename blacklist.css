@@ -1,25 +1,11 @@
-*{
-/*transition*/-webkit-transition:.25s ease-in-out;-moz-transition:.25s ease-in-out;-o-transition:.25s ease-in-out;transition:.25s ease-in-out;font-family:helvetica neue,helvetica,arial,sans-serif;font-size:18px;line-height:18px;box-sizing:border-box;margin:0;}
 body{
 background:#f8f8f8;
 }
-h1{
-text-align:center;
-padding:50px 0;
-font-size:30px;
-margin:0;
-font-weight:200;
-color:#454545;
-}
-h1 .fa-check{
-font-size:30px;
-margin-right:10px;
-color:#0eb0b7;
-}
-#todo-list{
+
+#blacklist{
 width:500px;
 margin:0 auto 50px auto;
-padding:50px;
+/* padding:50px; */
 background:white;
 position:relative;
 /*box-shadow*/
@@ -27,11 +13,9 @@ position:relative;
    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
         box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
 /*border-radius*/
--webkit-border-radius:5px;
-   -moz-border-radius:5px;
-        border-radius:5px;
+/* I don't want the border so I deleted it. */
 }
-#todo-list:before{
+#blacklist:before{
 content:"";
 position:absolute;
 z-index:-1;
@@ -44,20 +28,18 @@ bottom:0;
 left:10px;
 right:10px;
 /*border-radius*/
--webkit-border-radius:100px / 10px;
-   -moz-border-radius:100px / 10px;
-        border-radius:100px / 10px;
+/* I don't want the border so I deleted it. */
 }
-.todo-wrap{
+.blacklist-wrap{
 display:block;
 position:relative;
-padding-left:35px;
+/* padding-left:35px; */
 /*box-shadow*/
 -webkit-box-shadow:0 2px 0 -1px #ebebeb;
    -moz-box-shadow:0 2px 0 -1px #ebebeb;
         box-shadow:0 2px 0 -1px #ebebeb;
 }
-.todo-wrap:last-of-type{
+.blacklist-wrap:last-of-type{
 /*box-shadow*/
 -webkit-box-shadow:none;
    -moz-box-shadow:none;
@@ -73,7 +55,7 @@ top:-600px;
 .todo{
 display:inline-block;
 font-weight:200;
-padding:10px 5px;
+/* padding:10px 5px; */
 height:37px;
 position:relative;
 }
@@ -111,9 +93,7 @@ left:-25px;
      -o-transition:.25s ease-in-out;
         transition:.25s ease-in-out;
 /*border-radius*/
--webkit-border-radius:4px;
-   -moz-border-radius:4px;
-        border-radius:4px;
+/* I don't want the border so I deleted it. */
 }
 .todo:hover:after{
 /*box-shadow*/
@@ -149,7 +129,7 @@ text-align:center;
 color:#d8d8d8;
 opacity:0;
 }
-.todo-wrap:hover .delete-item{
+.blacklist-wrap:hover .delete-item{
 opacity:1;
 }
 .delete-item:hover{
@@ -158,7 +138,7 @@ color:#cd4400;
 /* Add Items */
 
 #add-todo{
-padding:25px 0 0 0;
+/* padding:25px 0 0 0; */
 font-size:14px;
 font-weight:200;
 color:#d8d8d8;
@@ -196,6 +176,6 @@ width:100%;
   overflow:hidden;
 }
 
-.editing.todo-wrap {
+.editing.blacklist-wrap {
   box-shadow:0 0 400px rgba(0,0,0,.8),inset 0 0px 0 2px #ebebeb;
 }
