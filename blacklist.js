@@ -1,9 +1,9 @@
 // add items
 $('#add-todo').click(function(){
-  var lastSibling = $('#blacklist > .blacklist-wrap:last-of-type > input').attr('id');
+  var lastSibling = $('#todo-list > .todo-wrap:last-of-type > input').attr('id');
   var newId = Number(lastSibling) + 1;
 
-  $(this).before('<span class="editing blacklist-wrap"><input type="checkbox" id="'+newId+'"/><label for="'+newId+'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo'+newId+'"/></label></div>');
+  $(this).before('<span class="editing todo-wrap"><input type="checkbox" id="'+newId+'"/><label for="'+newId+'" class="todo"><i class="fa fa-check"></i><input type="text" class="input-todo" id="input-todo'+newId+'"/></label></div>');
   $('#input-todo'+newId+'').parent().parent().animate({
     height:"36px"
   },200)
