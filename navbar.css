@@ -3,21 +3,21 @@ body {
 }
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 130px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
+  padding-top: 10em;
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
+  padding: 16px 14px 16px 14px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 18px;
+  color: #ffffff82;
   display: block;
 }
 
