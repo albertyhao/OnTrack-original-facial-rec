@@ -45,6 +45,11 @@ app.get('/settings', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.get('/settings.js', (req, res, next) => {
+	var filePath = path.join(__dirname, './settings.js')
+	res.sendFile(filePath);
+})
+
 app.get('/navbar.css', (req, res, next) => {
 	var filePath = path.join(__dirname, './navbar.css')
 	res.sendFile(filePath);
