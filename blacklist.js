@@ -1,6 +1,5 @@
 function addNewBlacklist() {
   var newBlacklistItem = document.getElementById("askForBlacklist").value;
-  var deleteIcon = document.querySelector("i");
   var td1 = document.createElement("TH");
   var td2 = document.createElement("TH");
   var newRow = document.createElement("TR");
@@ -13,3 +12,8 @@ function addNewBlacklist() {
 }
 
 document.getElementById("addToBlacklist").addEventListener("click", addNewBlacklist);
+
+function deletefromBlacklist() {
+  // TODO: use this for the delete function: document.getElementById("myTable").deleteTHead();
+
+}
