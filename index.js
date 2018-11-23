@@ -27,6 +27,18 @@ app.get('/blacklist', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.get('/blacklist.css', (req, res, next) => {
+	console.log('blacklist')
+	var filePath = path.join(__dirname, './blacklist.css')
+	res.sendFile(filePath);
+})
+
+app.get('/blacklist.js', (req, res, next) => {
+	console.log('blacklist')
+	var filePath = path.join(__dirname, './blacklist.js')
+	res.sendFile(filePath);
+})
+
 app.get('/settings', (req, res, next) => {
 	console.log('settings')
 	var filePath = path.join(__dirname, './settings.html')
