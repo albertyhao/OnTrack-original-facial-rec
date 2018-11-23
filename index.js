@@ -21,6 +21,12 @@ app.get('/', (req, res, next) => {
 	res.sendFile(filePath);
 });
 
+app.get('/signup', (req, res, next) => {
+	console.log('signup')
+	var filePath = path.join(__dirname, './signup.html')
+	res.sendFile(filePath);
+})
+
 app.get('/blacklist', (req, res, next) => {
 	console.log('blacklist')
 	var filePath = path.join(__dirname, './blacklist.html')
