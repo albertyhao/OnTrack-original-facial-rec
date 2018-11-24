@@ -3,6 +3,57 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/navbar.css" rel="stylesheet">
+    <style>
+      #time_left {
+        margin: 20px;
+        font-size: 4em;
+      }
+
+      #timericons {
+        margin: 20px;
+        font-size: 42px;
+        list-style: none;
+        width: 42px;
+      }
+
+      #reset, #start {
+          border: 4px solid #57bc90;
+          padding: 10px 20px;
+          border-radius: 50px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          text-decoration: none;
+          outline: none;
+          /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);*/
+          background: #fff;
+          color: #57bc90;
+          font-size: 15px;
+          width: 42px;
+      }
+
+      #reset:hover {
+        background: #57bc90;
+        color: #fff;
+        border: 4px solid #57bc90;
+        border-radius: 50px;
+        width: 42px;
+        /*-webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);*/
+      }
+
+      #start:hover {
+        background: #57bc90;
+        color: #fff;
+        border: 4px solid #57bc90;
+        border-radius: 50px;
+        width: 42px;
+        /*-webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);*/
+      }
+    </style>
   </head>
   <body>
     <!--
@@ -28,7 +79,71 @@
     HOME + timer
     -->
     <div class="main">
-      <h2>Home</h2>
+      <h2>I want to work for ...</h2>
+      <p id="time_left"></p>
+      <div id = "timericons">
+        <p id="start">START</p>
+        <p id="reset">RESET</p>
+      </div>
     </div>
   </body>
+  <script>
+    var COUNT_START = 10*45*60; // tenths * seconds * hours
+    var count = COUNT_START;
+    var playing = false;
+
+    start = document.getElementById('start');
+    reset = document.getElementById('reset');
+
+    start.onclick = function() {
+      if (playing) {
+        playing = false;
+        start.innerHTML = "START";
+      } else if (!playing) {
+        playing = true;
+        start.innerHTML = "PAUSE";
+      }
+    }
+
+    reset.onclick = function() {
+      if (playing) {
+        playing = false;
+        start.innerHTML = "START";
+      }
+      count = COUNT_START;
+    }
+
+    function countdown(){
+      displayTime();
+      if (count == 0) {
+        playing = false;
+      } else if (playing) {
+        setTimeout(countdown, 100);
+        count--;
+      } else {
+        setTimeout(countdown, 100);
+      }
+    }
+    countdown();
+
+    function displayTime() {
+      var tenths = count;
+      var sec = Math.floor(tenths / 10);
+      var hours = Math.floor(sec / 3600);
+      sec -= hours * (3600);
+      var mins = Math.floor(sec / 60);
+      sec -= mins * (60);
+
+      if (hours < 1) {
+        document.getElementById('time_left').innerHTML = LeadingZero(mins)+':'+LeadingZero(sec);
+      }
+      else {
+        document.getElementById('time_left').innerHTML = hours+':'+LeadingZero(mins)+':'+LeadingZero(sec);
+      }
+    }
+
+    function LeadingZero(Time) {
+      return (Time < 10) ? "0" + Time : + Time;
+    }
+  </script>
 </html>
