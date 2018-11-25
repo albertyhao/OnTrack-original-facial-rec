@@ -33,44 +33,6 @@
       <image src="" id="takenPic">
     </div>
 
-    <script>
-      var video = document.getElementById("videoElement");
-      navigator.getUserMedia = navigator.getUserMedia ||
-                               navigator.webkitGetUserMedia ||
-                               navigator.mozGetUserMedia ||
-                               navigator.msGetUserMedia ||
-                               navigator.oGetUserMedia;
-
-      if (navigator.getUserMedia) {
-        navigator.getUserMedia({video: true}, handleVideo, videoError);
-      }
-
-      function handleVideo(stream) {
-        video.srcObject = stream;
-        video.onloadedmetadata = function(e) {
-          video.play();
-        }
-      }
-
-      function videoError(e) {
-        console.log(e);
-      }
-
-      var canvas = document.createElement('canvas');
-      canvas.width = 640;
-      canvas.height = 480;
-      var ctx = canvas.getContext('2d');
-
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      var takePic = document.getElementById("takePic");
-
-      takePic.addEventListener('click', function() {
-        var dataURI = canvas.toDataURL('image/jpeg');
-
-        console.log(dataURI);
-        //document.getElementById("takenPic").src = dataURI;
-      })
-    </script>
+    <script src="/webcam.js"></script>
   </body>
 </html>
