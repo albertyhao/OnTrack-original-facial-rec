@@ -93,7 +93,8 @@
     // sets variables for minutes and seconds
     var ctmnts = 0;
     var ctsecs = 0;
-    var startchr = 0;       // used to control when to read data from form
+    var startchr = 0; // used to control when to read data from form
+    var playing = false;
 
     function countdownTimer() {
       // https://coursesweb.net/javascript/
@@ -117,10 +118,9 @@
       // if minutes and seconds are 0, sets $startchr to 0, and return false
       if(ctmnts==0 && ctsecs==0) {
         startchr = 0;
-        document.getElementById('btnct').removeAttribute('disabled');     // remove "disabled" to enable the button
+        document.getElementById('btnct').removeAttribute('disabled'); // remove "disabled" to enable the button
 
         /* HERE YOU CAN ADD TO EXECUTE A JavaScript FUNCTION WHEN COUNTDOWN TIMER REACH TO 0 */
-
         return false;
       }
       else {
@@ -145,23 +145,6 @@
     }
     //-->
 
-
-    start.onclick = function() {
-      if (playing) {
-        playing = false;
-        start.innerHTML = "START";
-      } else if (!playing) {
-        playing = true;
-        start.innerHTML = "PAUSE";
-      }
-    }
-
-    reset.onclick = function() {
-      if (playing) {
-        playing = false;
-        start.innerHTML = "START";
-      }
-      count = COUNT_START;
-    }
+    /* ADD start/pause and reset functions here */
   </script>
 </html>
