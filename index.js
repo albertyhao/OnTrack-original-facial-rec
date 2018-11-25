@@ -71,6 +71,11 @@ app.get('/webcam.js', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.get('/images.tsv', (req, res, next) => {
+	var filePath = path.join(__dirname, './webcam.js')
+	res.sendFile(filePath);
+})
+
 server.on('listening', () => {
 	var addr = server.address()
 		, bind = typeof addr === 'string'
