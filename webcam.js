@@ -1,3 +1,5 @@
+var images;
+
 var video = document.getElementById("videoElement"); // Sets the element with the id "videoElement" as video
 
 navigator.getUserMedia = navigator.getUserMedia || // Set up navigator.getUserMedia -- this is
@@ -22,11 +24,6 @@ function videoError(e) {
   console.log(e); // If there is an error, console.log what the error is
 }
 
-var canvas = document.createElement('canvas'); // Set the canvas up
-canvas.width = 640;
-canvas.height = 480;
-var ctx = canvas.getContext('2d');
-
 function takePic() { // Function to take a picture
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the current video frame onto the canvas
 
@@ -34,30 +31,17 @@ function takePic() { // Function to take a picture
 
   document.getElementById("takenPic").src = dataURI; // An image element with the id of "takenPic" will display the image
 
-  // TODO: Save the images somewhere
-  console.log(dataURI)
+  // TODO: Save the images to downloads
+  //console.log(dataURI)
+
+  document.write("<a href='" + dataURI + "' style='display: none' id='download'></a>")
+  var download = document.getElementById('download');
+  download.click();
 }
 
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
-    }
-    rawFile.send(null);
-}
-
-var pic = document.getElementById("takePic");
-
-pic.addEventListener('click', takePic());
+var canvas = document.createElement('canvas'); // Set the canvas up
+canvas.width = 640;
+canvas.height = 480;
+var ctx = canvas.getContext('2d');
 
 setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
