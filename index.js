@@ -21,6 +21,18 @@ app.get('/', (req, res, next) => {
 	res.sendFile(filePath);
 });
 
+app.get('/timer.js', (req, res, next) => {
+	console.log('timer')
+	var filePath = path.join(__dirname, './timer.js')
+	res.sendFile(filePath);
+});
+
+app.get('/home.css', (req, res, next) => {
+	console.log('home')
+	var filePath = path.join(__dirname, './home.css')
+	res.sendFile(filePath);
+});
+
 app.get('/signup', (req, res, next) => {
 	console.log('signup')
 	var filePath = path.join(__dirname, './signup.html')

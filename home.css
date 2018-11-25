@@ -1,0 +1,57 @@
+#time {
+  margin: 20px;
+  font-size: 4em;
+}
+
+#timericons {
+  margin: 20px;
+  font-size: 42px;
+  list-style: none;
+  width: 42px;
+}
+
+#btnct {
+    border: 4px solid #57bc90;
+    padding: 10px 20px;
+    border-radius: 50px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none;
+    /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);*/
+    background: #fff;
+    color: #57bc90;
+    font-size: 15px;
+    width: 142px;
+}
+
+#btnct:hover {
+  background: #57bc90;
+  color: #fff;
+  border: 4px solid #57bc90;
+  border-radius: 50px;
+  width: 142px;
+  /*-webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);*/
+}
+
+/* FADE IN/OUT bkgd div
+#bkgd img {
+    opacity: 1;
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    -webkit-transition: opacity 5s ease-out;
+    -moz-transition: opacity 5s ease-out;
+    -o-transition: opacity 5s ease-out;
+    -ms-transition: opacity 5s ease-out;
+    transition: opacity 5s ease-out;
+}
+#bkgd img.fade {
+    opacity: 0;
+}
+
+*/
