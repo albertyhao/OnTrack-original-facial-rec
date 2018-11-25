@@ -55,3 +55,7 @@ function countdownTimer() {
 //-->
 
 /* ADD start/pause and reset functions here */
+
+/* FADE IN/OUT bkgd div
+$("#bkgd img").addClass("fade");
+*/

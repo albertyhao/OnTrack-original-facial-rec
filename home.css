@@ -37,3 +37,21 @@
   /*-webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
   box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);*/
 }
+
+/* FADE IN/OUT bkgd div
+#bkgd img {
+    opacity: 1;
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    -webkit-transition: opacity 5s ease-out;
+    -moz-transition: opacity 5s ease-out;
+    -o-transition: opacity 5s ease-out;
+    -ms-transition: opacity 5s ease-out;
+    transition: opacity 5s ease-out;
+}
+#bkgd img.fade {
+    opacity: 0;
+}
+
+*/
