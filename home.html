@@ -117,7 +117,7 @@
 
       // if minutes and seconds are 0, sets $startchr to 0, and return false
       if(ctmnts==0 && ctsecs==0) {
-        startchr = 0;
+        startchr = 00;
         document.getElementById('btnct').removeAttribute('disabled'); // remove "disabled" to enable the button
 
         /* HERE YOU CAN ADD TO EXECUTE A JavaScript FUNCTION WHEN COUNTDOWN TIMER REACH TO 0 */
@@ -132,8 +132,8 @@
             ctmnts--;
           }
           else {
-            ctsecs = 0;
-            ctmnts = 0;
+            ctsecs = 00;
+            ctmnts = 00;
           }
         }
       }
