@@ -83,8 +83,8 @@ app.get('/webcam.js', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
-app.get('/images.tsv', (req, res, next) => {
-	var filePath = path.join(__dirname, './images.tsv')
+app.get('/pcap.js', (req, res, next) => {
+	var filePath = path.join(__dirname, './pcap.js')
 	res.sendFile(filePath);
 })
 
