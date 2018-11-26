@@ -27,30 +27,32 @@
       </a>
     </div>
 
+    <div class="" id="bkgd"></div>
+    <!--<img src="http://i67.tinypic.com/15hfz3a.png"/>-->
+
     <!--
     HOME + timer
     -->
     <center>
-    <div class="" id="bkgd">
-      <!--<img src="http://i67.tinypic.com/15hfz3a.png"/>-->
       <h2>I want to work for ...</h2>
       <form>
         <p style="display: inline;">Minutes:</p>
         <input type="text" id="mns" name="mns" value="00" size="3" maxlength="3" />
         <p style="display: inline;">Seconds:</p>
         <input type="text" id="scs" name="scs" value="00" size="2" maxlength="2" />
+
+        <p>Countdown Timer:</p>
+        <div id="time">
+          <span id="showmns">00</span>:<span id="showscs">00</span>
+        </div>
+
         <div id = "timericons">
           <input type="button" id="btnct" value="START" onclick="countdownTimer()"/>
           <input type="button" id="btnct" value="RESET"/>
         </div>
       </form>
-
-      Countdown Timer:
-      <div id="time">
-        <span id="showmns">00</span>:<span id="showscs">00</span>
-      </div>
-    </div>
-  </center>
+    </center>
   </body>
+
   <script src="/timer.js"></script>
 </html>
