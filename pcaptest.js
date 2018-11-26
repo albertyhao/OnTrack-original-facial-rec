@@ -1,4 +1,5 @@
-// starts a capture session with createSession
+// use sudo node pcaptest.js to start the session
+//starts a capture session with createSession
 var pcap = require('pcap'),
     tcp_tracker = new pcap.TCPTracker(),
     pcap_session = pcap.createSession('en0', "ip proto \\tcp");
