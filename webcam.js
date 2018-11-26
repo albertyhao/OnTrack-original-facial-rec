@@ -3,10 +3,10 @@ var images;
 var video = document.getElementById("videoElement"); // Sets the element with the id "videoElement" as video
 
 navigator.getUserMedia = navigator.getUserMedia || // Set up navigator.getUserMedia -- this is
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
-                         navigator.msGetUserMedia ||
-                         navigator.oGetUserMedia;
+navigator.webkitGetUserMedia ||
+navigator.mozGetUserMedia ||
+navigator.msGetUserMedia ||
+navigator.oGetUserMedia;
 
 if (navigator.getUserMedia) { // If navigator.getUserMedia exists and is not a null value
   navigator.getUserMedia({video: true}, handleVideo, videoError); // Set the video up.
@@ -34,8 +34,10 @@ function takePic() { // Function to take a picture
   // TODO: Save the images to downloads
   //console.log(dataURI)
 
-  document.write("<a href='" + dataURI + "' style='display: none' id='download'></a>")
   var download = document.getElementById('download');
+
+  download.href = dataURI;
+
   download.click();
 }
 
@@ -45,3 +47,11 @@ canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
 setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+
+let webviewSession = session.fromPartition(partitionName);
+webviewSession.on('will-download', function(e, item, webContents) {
+    if (item.getMimeType() === "application/pdf") {
+        e.preventDefault()
+        // logic
+    }
+})
