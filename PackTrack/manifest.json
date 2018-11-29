@@ -3,6 +3,10 @@
   "name": "PackTrack",
   "version": "1.0",
 
+  "web_accessible_resources": [
+  "background.js"
+  ],
+
   "description": "OnTrack's PackTrack",
   "icons": { "16": "packtrack16.png",
              "48": "packtrack48.png",
@@ -25,5 +29,8 @@
       "background.js"
     ],
     "persistent": false
+
+
   }
+
 }
