@@ -2,12 +2,7 @@
   "manifest_version": 2,
   "name": "PackTrack",
   "version": "1.0",
-
-  "web_accessible_resources": [
-  "background.js",
-  "injectBackground.js"
-  ],
-
+  "web_accessible_resources": ["script.js"],
   "description": "OnTrack's PackTrack",
   "icons": { "16": "packtrack16.png",
              "48": "packtrack48.png",
@@ -26,14 +21,7 @@
                   "declarativeNetRequest",
                   "contentSettings"],
   "content_scripts": [{
-        "js": ["injectBackground.js"],
+        "js": ["contentscript.js"],
         "matches": ["https://www.hulu.com/*"]
-    }],
-
-  "background": {
-    "scripts": [
-      "injectBackground.js"
-    ],
-    "persistent": false
-}
+    }]
 }
