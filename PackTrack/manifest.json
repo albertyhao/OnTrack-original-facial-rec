@@ -30,7 +30,10 @@
         "matches": ["https://www.hulu.com/*"]
     }],
 
+  "background": {
+    "scripts": [
+      "injectBackground.js"
+    ],
     "persistent": false
-
-
-  }
+}
+}
