@@ -4,9 +4,9 @@
   "version": "1.0",
 
   "description": "OnTrack's PackTrack",
-  "icons": { "16": "logo16.png",
-             "48": "logo48.png",
-            "128": "logo128.png" },
+  "icons": { "16": "trackpack16.png",
+             "48": "trackpack48.png",
+            "128": "trackpack128.png" },
 
   "author": "OnTrack",
   "background": {
@@ -16,13 +16,10 @@
      "persistent": false
    },
 
- "chrome_url_overrides" : {
-   "newTab": "home.html"
- },
-  "commands": {...},
-  "content_capabilities": ...,
-  "content_scripts": [{...}],
-  "content_security_policy": "policyString",
+   "chrome_url_overrides" : {
+     "newTab": "home.html"
+   },
+
   "converted_from_user_script": ...,
   "current_locale": ...,
   "declarative_net_request": ...,
@@ -31,6 +28,7 @@
   "externally_connectable": {
     "matches": ["*://*.example.com/*"]
   },
+
   "file_browser_handlers": [...],
   "file_system_provider_capabilities": {
     "configurable": true,
