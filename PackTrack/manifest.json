@@ -14,9 +14,5 @@
       "background.js"
     ],
     "persistent": false
-  },
-
-  "chrome_url_overrides" : {
-    "newTab": "home.html"
   }
 }
