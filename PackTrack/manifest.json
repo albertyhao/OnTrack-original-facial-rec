@@ -27,8 +27,7 @@
                   "contentSettings"],
   "background": {
     "scripts": [
-      "background.js",
-      "injectBackground.js"
+      "background.js"
     ],
     "persistent": false
 
