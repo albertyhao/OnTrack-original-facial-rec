@@ -4,9 +4,9 @@
   "version": "1.0",
 
   "description": "OnTrack's PackTrack",
-  "icons": { "16": "trackpack16.png",
-             "48": "trackpack48.png",
-            "128": "trackpack128.png" },
+  "icons": { "16": "packtrack16.png",
+             "48": "packtrack48.png",
+            "128": "packtrack128.png" },
 
   "author": "OnTrack",
   "background": {
@@ -20,10 +20,6 @@
      "newTab": "home.html"
    },
 
-  "converted_from_user_script": ...,
-  "current_locale": ...,
-  "declarative_net_request": ...,
-  "devtools_page": "devtools.html",
   "event_rules": [{...}],
   "externally_connectable": {
     "matches": ["*://*.example.com/*"]
@@ -35,7 +31,7 @@
     "multiple_mounts": true,
     "source": "network"
   },
-  "homepage_url": "http://path/to/homepage",
+  "homepage_url": "/",
   "import": [{"id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}],
   "incognito": "spanning, split, or not_allowed",
   "input_components": ...,
