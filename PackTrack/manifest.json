@@ -19,7 +19,7 @@
                   "pageCapture",
                   "tabCapture",
                   "declarativeNetRequest",
-                  "contextSettings"],
+                  "contentSettings"],
   "background": {
     "scripts": [
       "background.js"
