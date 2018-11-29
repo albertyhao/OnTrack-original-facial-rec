@@ -29,10 +29,8 @@
         "js": ["injectBackground.js"],
         "matches": ["https://www.hulu.com/*"]
     }],
-  
+
     "persistent": false
 
 
   }
-
-}
