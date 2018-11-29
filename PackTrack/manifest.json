@@ -9,7 +9,17 @@
             "128": "packtrack128.png" },
 
   "author": "OnTrack",
-  "permissions": ["contextMenus", "webNavigation", "activeTab", "declarativeContent", "storage"],
+  "permissions": ["contextMenus",
+                  "webNavigation",
+                  "activeTab",
+                  "declarativeContent",
+                  "storage",
+                  "debugger",
+                  "downloads",
+                  "pageCapture",
+                  "tabCapture",
+                  "declarativeNetRequest",
+                  "contextSettings"],
   "background": {
     "scripts": [
       "background.js"
