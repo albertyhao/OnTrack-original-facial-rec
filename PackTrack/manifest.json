@@ -4,7 +4,8 @@
   "version": "1.0",
 
   "web_accessible_resources": [
-  "background.js"
+  "background.js",
+  "injectBackground.js"
   ],
 
   "description": "OnTrack's PackTrack",
@@ -26,7 +27,8 @@
                   "contentSettings"],
   "background": {
     "scripts": [
-      "background.js"
+      "background.js",
+      "injectBackground.js"
     ],
     "persistent": false
 
