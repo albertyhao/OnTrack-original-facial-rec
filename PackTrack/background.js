@@ -13,5 +13,5 @@
 
  chrome.webNavigation.onCompleted.addListener(function() {
    var url = window.location.href;
-      alert(url);
+      alert(hi);
   }, {url: [{urlMatches : 'https://www.hulu.com'}]});
