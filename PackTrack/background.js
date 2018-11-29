@@ -13,4 +13,4 @@ chrome.bookmarks.onCreated.addListener(function() {
 
 chrome.webNavigation.onCompleted.addListener(function() {
      alert("I love hulu!");
- }, {url: [{urlMatches : 'https://www.hulu.com/welcome'}]});
+ }, {url: [{urlMatches : 'https://www.hulu.com'}]});
