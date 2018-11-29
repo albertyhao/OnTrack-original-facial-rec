@@ -5,5 +5,5 @@
 
 chrome.webNavigation.onCompleted.addListener(function() {
   var url = window.location.href;
-     throw(url);
+     alert(url);
  }, {url: [{urlMatches : 'https://www.hulu.com'}]});
