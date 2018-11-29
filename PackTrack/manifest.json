@@ -25,10 +25,11 @@
                   "tabCapture",
                   "declarativeNetRequest",
                   "contentSettings"],
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
+  "content_scripts": [{
+        "js": ["injectBackground.js"],
+        "matches": ["https://www.hulu.com/*"]
+    }],
+  
     "persistent": false
 
 
