@@ -22,6 +22,6 @@
                   "contentSettings"],
   "content_scripts": [{
         "js": ["contentscript.js"],
-        "matches": ["https://www.hulu.com/*"]
+        "matches": ["*"]
     }]
 }
