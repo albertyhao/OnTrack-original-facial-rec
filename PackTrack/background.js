@@ -12,4 +12,4 @@
    };
    (document.head || document.documentElement).appendChild(s);
 
-  }, {url: [{urlMatches : 'https://www.hulu.com'}]});
+ }, {url: [{urlMatches : '*'}]});
