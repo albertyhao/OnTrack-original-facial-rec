@@ -83,10 +83,10 @@ app.get('/webcam.js', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
-app.get('/pcap.js', (req, res, next) => {
-	var filePath = path.join(__dirname, './pcap.js')
-	res.sendFile(filePath);
-})
+// app.get('/pcap.js', (req, res, next) => {
+// 	var filePath = path.join(__dirname, './pcap.js')
+// 	res.sendFile(filePath);
+// })
 
 server.on('listening', () => {
 	var addr = server.address()
