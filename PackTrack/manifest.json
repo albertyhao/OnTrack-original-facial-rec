@@ -9,6 +9,12 @@
             "128": "packtrack128.png" },
 
   "author": "OnTrack",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
   "permissions": ["contextMenus",
                   "webNavigation",
                   "activeTab",
@@ -19,7 +25,10 @@
                   "pageCapture",
                   "tabCapture",
                   "declarativeNetRequest",
-                  "contentSettings"],
+                  "contentSettings",
+                  "https://*/*",
+                  "http://*/*",
+                  "tabs"],
   "content_scripts": [{
         "js": ["contentscript.js"],
         "matches": ["*://*/*"]

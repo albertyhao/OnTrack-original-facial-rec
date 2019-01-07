@@ -31,7 +31,7 @@ function takePic() { // Function to take a picture
 
   document.getElementById("takenPic").src = dataURI; // An image element with the id of "takenPic" will display the image
 
-  // TODO: Save the images to downloads
+  // TODO: Change the download to send to server
   //console.log(dataURI)
 
   var download = document.getElementById('download');
