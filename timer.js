@@ -49,7 +49,10 @@ function countdownTimer() {
 
   // display the time in page, and auto-calls this function after 1 seccond
   document.getElementById('showmns').innerHTML = ctmnts;
-  document.getElementById('showscs').innerHTML = ctsecs;
+  document.getElementById('showscs').innerHTML = addzero(ctsecs);
+  function addzero(n){
+    return n > 9 ? "" + n: "0" + n;
+  }
   setTimeout('countdownTimer()', 1000);
 }
 //-->
