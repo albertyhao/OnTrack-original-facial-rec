@@ -1,5 +1,6 @@
 var express = require('express')
 	, path = require('path')
+	, packtrackSchema = require('./packtrackSchema.js').getModel()
 	, bodyParser = require('body-parser')
 	, http = require('http')
 	, async = require('async')
