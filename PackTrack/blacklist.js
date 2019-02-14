@@ -1,3 +1,23 @@
+var badWords = [Game,
+    .io,
+    Movie,
+    Pics,
+    Anime,
+    Fandom,
+    Shopping,
+    TV,
+    Fan,
+    Fiction,
+    Comic,
+    Manga,
+    Porn,
+    XXX,
+    XX,
+    Meme,
+    Film,
+    Fanatic
+    ]
+
 var badSites = 
 [
     {
@@ -1403,15 +1423,6 @@ var badSites =
         "host": "tubaholic",
         "tld": "com",
         "parent_domain": "tubaholic.com"
-    },
-    {
-        "protocol": "http",
-        "domain": "www.bing.com",
-        "path": "videos/search?qpvt=Porn&q=Porn&qft=+filterui:duration-long+filterui:resolution-tv",
-        "subdomain": "www",
-        "host": "bing",
-        "tld": "com",
-        "parent_domain": "bing.com"
     },
     {
         "protocol": "http",
@@ -3969,15 +3980,7 @@ var badSites =
         "tld": "com",
         "parent_domain": "opera.com"
     },
-    {
-        "protocol": "http",
-        "domain": "support.apple.com",
-        "path": "kb/dl1531",
-        "subdomain": "support",
-        "host": "apple",
-        "tld": "com",
-        "parent_domain": "apple.com"
-    },
+
     {
         "protocol": "http",
         "domain": "wwww.jdownloader.org",
