@@ -492,7 +492,7 @@ var badWords = [
     "zabourah"
     ]
 
-var badSites = 
+var badSites =
 [
     {
         "protocol": "http",
