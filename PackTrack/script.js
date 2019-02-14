@@ -195,3 +195,13 @@ webviewSession.on('will-download', function(e, item, webContents) {
         // logic
     }
 })
+
+var siteText = document.body.textContent.toLowerCase
+function blockByContent() {
+  if(siteText.includes(/**
+    window.badWords.forEach(function(badSite){
+    */)) {
+    document.write('yarga (courtesy of Bert Hao)');
+    return;
+  }
+}
