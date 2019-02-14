@@ -18,7 +18,7 @@ var badWords = [Game,
     Fanatic
     ]
 
-var badSites = 
+var badSites =
 [
     {
         "protocol": "http",
