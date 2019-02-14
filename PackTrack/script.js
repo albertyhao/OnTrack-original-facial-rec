@@ -4,6 +4,20 @@ var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
 document.body.appendChild(img);
 
+function checkIfLoaded(){
+  if(!window.badSites){
+    return setTimeout(checkIfLoaded, 100);
+  }
+
+  window.badSites.forEach(function(badSite){
+    if(location.hostname.endsWith(badSite.parent_domain)){
+      document.write('yarga (courtesy of Bert Hao)');
+      return;
+    }
+  });
+}
+checkIfLoaded();
+
 // Database
 // In the following line, you should include the prefixes of implementations you want to test.
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
