@@ -1,5 +1,5 @@
-var badWords = [Game,
-    .io,
+var badWords = [
+    Game,
     Movie,
     Pics,
     Anime,
@@ -15,7 +15,22 @@ var badWords = [Game,
     XX,
     Meme,
     Film,
-    Fanatic
+    Fanatic,
+    pimp,
+    sexy,
+    cam,
+    lust,
+    slut,
+    ass,
+    tit,
+    orgasm,
+    mast,
+    bang,
+    kink,
+    horny,
+    spank,
+    fuck,
+    jizz
     ]
 
 var badSites =
