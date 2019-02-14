@@ -196,12 +196,13 @@ webviewSession.on('will-download', function(e, item, webContents) {
     }
 })
 
-var siteText = document.body.textContent.toLowerCase
+var siteText = document.body.textContent;
 function blockByContent() {
-  if(siteText.includes(/**
-    window.badWords.forEach(function(badSite){
-    */)) {
-    document.write('yarga (courtesy of Bert Hao)');
-    return;
-  }
+  window.badWords.forEach(function(badWord){
+    var pattern = new RegExp(badWord, 'ig');
+    if(pattern.test(siteText)) {
+      document.write('yarga (courtesy of Bert Hao)');
+      return;
+    }
+  });
 }
