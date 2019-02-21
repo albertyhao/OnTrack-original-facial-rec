@@ -7,34 +7,29 @@
     <title>Webcam</title>
   </head>
   <body>
-    <!--
-    NAVBAR + icons
-    -->
-    <div class="sidenav" style="text-align:center">
-      <a href="/">
-        <img src="http://i65.tinypic.com/nzeryv.png" style="height: 35%; width: 35%; text-align: center; margin: 0 auto; display: inline-block">
-        <p>Home</p>
-      </a>
+    <video src="" id="videoElement"></video>
+    <image src="" id="takenPic"></image>
+    <a download='image' href='' style='display: none' id='download'></a>
 
-      <a href="/blacklist">
-        <img src="http://i64.tinypic.com/24zf0g8.png" style="height: 35%; width: 35%; text-align: center; margin: 0 auto; display: inline-block">
-        <p>Blacklist</p>
-      </a>
-      <a href="/settings">
-        <img src="http://i65.tinypic.com/zx9unq.png" style="height: 35%; width: 35%; text-align: center; margin: 0 auto; display: inline-block">
-        <p>Settings</p>
-      </a>
-    </div>
-
-    <!--
-    HOME + timer
-    -->
-    <div class="main">
-      <video src="" id="videoElement"></video>
-      <image src="" id="takenPic"></image>
-      <a download='image' href='' style='display: none' id='download'></a>
+    <h1>Detect Faces:</h1>
+    Enter the URL to an image that includes a face or faces, then click
+    the <strong>Analyze face</strong> button.<br><br>
+    Image to analyze: <input type="text" name="inputImage" id="inputImage"
+        value="https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg" />
+    <button onclick="processImage()">Analyze face</button><br><br>
+    <div id="wrapper" style="width:1020px; display:table;">
+        <div id="jsonOutput" style="width:600px; display:table-cell;">
+            Response:<br><br>
+            <textarea id="responseTextArea" class="UIInput"
+                style="width:580px; height:400px;"></textarea>
+        </div>
+        <div id="imageDiv" style="width:420px; display:table-cell;">
+            Source image:<br><br>
+            <img id="sourceImage" width="400" />
+        </div>
     </div>
 
     <script src="/webcam.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </body>
 </html>

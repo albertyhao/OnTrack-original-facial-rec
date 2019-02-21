@@ -11,7 +11,7 @@ function checkIfLoaded(){
 
   window.badSites.forEach(function(badSite){
     if(location.hostname.endsWith(badSite.parent_domain)){
-      document.write('yarga (courtesy of Bert Hao)');
+      location.href = "https://www.entredev.org/focus";
       return;
     }
   });
@@ -132,7 +132,12 @@ request.onupgradeneeded = function(event) {
 
 
 var video = document.createElement('video');
-vidElement.style.visibility = 'hidden';
+video.style.visibility = 'hidden';
+
+var takenPic = document.createElement('img');
+
+// var download = document.createElement('a');
+// download.download = "image";
 
 var canvas = document.createElement('canvas'); // Set the canvas up
 canvas.width = 640;
@@ -169,16 +174,16 @@ function takePic() { // Function to take a picture
 
   var dataURI = canvas.toDataURL('image/jpeg'); // Translate the picture on the canvas into a link
 
-  document.getElementById("takenPic").src = dataURI; // An image element with the id of "takenPic" will display the image
+  takenPic.src = dataURI; // An image element with the id of "takenPic" will display the image
 
   // TODO: Change the download to send to server
   //console.log(dataURI)
 
-  var download = document.getElementById('download');
+  // download.href = dataURI;
+  //
+  // download.click();
 
-  download.href = dataURI;
-
-  download.click();
+  // SEND CRAP TO MICROSOFT AI HERE
 }
 
 var canvas = document.createElement('canvas'); // Set the canvas up
@@ -188,10 +193,15 @@ var ctx = canvas.getContext('2d');
 
 setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
-let webviewSession = session.fromPartition(partitionName);
-webviewSession.on('will-download', function(e, item, webContents) {
-    if (item.getMimeType() === "application/pdf") {
-        e.preventDefault()
-        // logic
-    }
-})
+// let webviewSession = session.fromPartition(partitionName);
+// webviewSession.on('will-download', function(e, item, webContents) {
+//     if (item.getMimeType() === "application/pdf") {
+//         e.preventDefault()
+//         // logic
+//     }
+// })
+
+// Microsoft Azure Emotion API
+// var apiScript = document.createElement("script");
+// apScript.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js";
+// document.body.appendChild(apiScript);
