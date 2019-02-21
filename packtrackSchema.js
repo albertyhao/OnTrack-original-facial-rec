@@ -8,7 +8,7 @@ var model = mongoose.model('browsingHistory', new mongoose.Schema({
     type: String,
   },
   image: {
-    type: Binary,
+    type: Buffer,
   },
   timestamp: {
     type: Date,
@@ -19,3 +19,5 @@ var model = mongoose.model('browsingHistory', new mongoose.Schema({
 
 })
 );
+
+exports.getModel = model;
