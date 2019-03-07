@@ -130,7 +130,100 @@ request.onupgradeneeded = function(event) {
   };*/
 };
 
+var happyLvl = 0;
 
+function sendData() {
+	userInteracted = true;
+	/* GRABBING THE PICTURE FROM THE VIDEO */
+	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+	var imageDataToSend = canvas.toDataURL();
+	var req = new XMLHttpRequest();
+	req.open('POST', 'https://ai.experimentdrivenlife.com/capture/save/dataurl', true);
+	req.setRequestHeader('content-type', 'application/json');
+	req.onreadystatechange = function() {
+		if (req.readyState != 4) {
+			return;
+		}
+    processImage("https://ai.experimentdrivenlife.com/" + JSON.parse(req.response)["name"]);
+    //return JSON.parse(req.response)["name"];
+	}
+	req.send(JSON.stringify({ image: imageDataToSend }));
+}
+
+function processImage(theImageURL) {
+    // Replace <Subscription Key> with your valid subscription key.
+    var subscriptionKey = "f8b349387e6249f5ae85a6adec9702aa";
+
+    // NOTE: You must use the same region in your REST call as you used to
+    // obtain your subscription keys. For example, if you obtained your
+    // subscription keys from westus, replace "westcentralus" in the URL
+    // below with "westus".
+    //
+    // Free trial subscription keys are generated in the "westus" region.
+    // If you use a free trial subscription key, you shouldn't need to change
+    // this region.
+    var uriBase =
+        "https://westus.api.cognitive.microsoft.com/face/v1.0/detect";
+
+    // Request parameters.
+    var params = {
+        "returnFaceId": "true",
+        "returnFaceLandmarks": "false",
+        "returnFaceAttributes":
+            "age,gender,headPose,smile,facialHair,glasses,emotion," +
+            "hair,makeup,occlusion,accessories,blur,exposure,noise"
+    };
+
+    // Display the image.
+
+    // Perform the REST API call.
+    $.ajax({
+        url: uriBase + "?" + $.param(params),
+
+        // Request headers.
+        beforeSend: function(xhrObj){
+            xhrObj.setRequestHeader("Content-Type","application/json");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+        },
+
+        type: "POST",
+
+        // Request body.
+        data: '{"url": ' + '"' + theImageURL + '"}',
+    })
+
+    .done(function(data) {
+      if (data[0]) { // If a face was identifiable
+        if (isHappy(data[0]["faceAttributes"]["emotion"])) {
+          happyLvl++;
+          blockByEmotion();
+        }; // Console log if the face was happy or not BLA
+      }
+
+
+      }
+    })
+
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        // Display error message.
+        var errorString = (errorThrown === "") ?
+            "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+        errorString += (jqXHR.responseText === "") ?
+            "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+                jQuery.parseJSON(jqXHR.responseText).message :
+                    jQuery.parseJSON(jqXHR.responseText).error.message;
+        alert(errorString);
+    });
+}
+
+function isHappy(data) {
+  if (data["happiness"] > 0.7) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 var video = document.createElement('video');
 video.style.visibility = 'hidden';
@@ -170,50 +263,12 @@ function videoError(e) {
   console.log(e); // If there is an error, console.log what the error is
 }
 
-function takePic() { // Function to take a picture
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the current video frame onto the canvas
-
-  var dataURI = canvas.toDataURL('image/jpeg'); // Translate the picture on the canvas into a link
-
-  takenPic.src = dataURI; // An image element with the id of "takenPic" will display the image
-
-  // TODO: Change the download to send to server
-  //console.log(dataURI)
-
-  // download.href = dataURI;
-  //
-  // download.click();
-
-  // SEND CRAP TO MICROSOFT AI HERE
-}
-
 var canvas = document.createElement('canvas'); // Set the canvas up
 canvas.width = 640;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
-
-// let webviewSession = session.fromPartition(partitionName);
-// webviewSession.on('will-download', function(e, item, webContents) {
-//     if (item.getMimeType() === "application/pdf") {
-//         e.preventDefault()
-//         // logic
-//     }
-// })
-
-// Microsoft Azure Emotion API
-// var apiScript = document.createElement("script");
-// apScript.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js";
-// document.body.appendChild(apiScript);
-
-let webviewSession = session.fromPartition(partitionName);
-webviewSession.on('will-download', function(e, item, webContents) {
-    if (item.getMimeType() === "application/pdf") {
-        e.preventDefault()
-        // logic
-    }
-})
+setInterval(sendData, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 var siteText = document.body.textContent;
 function blockByContent() {
@@ -224,4 +279,12 @@ function blockByContent() {
       return;
     }
   });
+}
+
+function blockByEmotion() {
+  if (happyLvl > 3) {
+    // Add the website to the block list
+    location.href = "https://www.entredev.org/focus";
+    return;
+  }
 }
