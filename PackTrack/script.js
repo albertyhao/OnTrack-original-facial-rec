@@ -280,7 +280,7 @@ function blockByContent() {
   window.badWords.forEach(function(badWord){
     var pattern = new RegExp(badWord, 'ig');
     if(pattern.test(siteText)) {
-      document.write('yarga (courtesy of Bert Hao)');
+      location.href = "https://www.entredev.org/focus";
       return;
     }
   });
