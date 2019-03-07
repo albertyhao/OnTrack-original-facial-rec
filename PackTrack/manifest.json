@@ -21,15 +21,17 @@
                   "declarativeNetRequest",
                   "contentSettings"],
   "content_scripts": [{
-        "js": ["contentscript.js"],
-        "matches": ["*://*/*"]
+        "js": ["contentscript.js", "ui2.js"],
+        "matches": ["*://*/*"],
+        "run_at": "document_end"
     }],
   "browser_action": {
       "default_icon": "packtrack16.png",
-      "default_popup": "ui.html"
+      "default_popup": "ui2.html"
   },
   "permissions": [
       "activeTab",
       "clipboardWrite"
   ]
+
 }
