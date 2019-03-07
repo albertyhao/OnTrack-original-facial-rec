@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Avalon</title>
+		<style>
+			
+			#form {
+				margin-left: 33vw;
+				width: 33vw;
+			}
+			#username, #password, #email {
+				display: block;
+				height: 5vh;
+			}
+			input {
+				width: 20vw;
+			}
+			button {
+			  background-color: #4CAF50;
+			  color: white;
+			  padding: 10px;
+			  margin: 8px 0;
+			  border: none;
+			  cursor: pointer;
+			  width: 15%;
+			  opacity: 0.9;
+			}
+			button:hover {
+			  opacity:1;
+			}
+			h1 {text-align: center; margin-top: 22vh;}
+			h1, label {color: white;}
+
+		</style>
+	</head>
+	<body>
+		<h1>Sign Up for Avalon</h1>
+		<div id="form">
+			<center>
+				<div id="username">
+				<label>Username</label>
+				<input type='text' name='userName'>
+				</div>
+
+				<div id="password">
+				<label>Password</label>
+				<input type='password' name='password'>
+				</div>
+
+				<button>Login</button>
+			</center>
+		</div>
+
+		<script>
+    function grabData() {
+        // Getting all the input tags
+        var $inputs = document.querySelectorAll('input');
+        // Defining a variable to store all the data
+        var data = {};
+        // Looping through all the input tags
+        for(var i = 0; i < $inputs.length; i++) {
+            // Getting the ith input tag
+            var $input = $inputs[i];
+            // Getting the name of the data that the input tag holds
+            var name = $input.name;
+            // Getting the value that the user entered into the input tag
+            var value = $input.value;
+            // Storing the value and its name
+            data[name] = value
+        }
+        // Outputting the data
+        return data
+      }
+    function sendData(data) {
+    // Creating a new request to the server that contains the data
+    var req = new XMLHttpRequest();
+    // Opening up a connection with the server to 'POST' data
+    req.open('POST', '/login', true);
+    // Explain to the server that we are sending the data in json format
+    req.setRequestHeader('content-type', 'application/json');
+    // Explain to the server that we are sending the data in json format
+    // Alert the user to any errors from the server
+    function readyStateChange() {
+      if(req.readyState !== 4) return;
+      if(req.status !== 200) return;
+      var data = JSON.parse(req.responseText);
+       if(data.error) {
+       return alert(data.error);
+       }
+      window.location.href = '/game';
+    }
+    req.onreadystatechange = readyStateChange;
+    // Sending the data in JSON format
+    req.send(JSON.stringify(data));
+    }
+    function submit() {
+      var formData = grabData();
+      sendData(formData);
+    }
+    var $button = document.querySelector('button')
+    $button.addEventListener('click', submit)
+		</script>
+	</body>
+</html>

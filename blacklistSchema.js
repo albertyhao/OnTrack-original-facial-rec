@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var model = mongoose.model('browsingHistory', new mongoose.Schema({
+var model = mongoose.model('blacklist', new mongoose.Schema({
   protocol: {
     type: String
   },
@@ -8,10 +8,10 @@ var model = mongoose.model('browsingHistory', new mongoose.Schema({
     type: String
   },
   path: {
-    type: String,
+    type: String
   },
   subdomain: {
-    type: Date
+    type: String
   },
   host: {
     type: String
@@ -25,4 +25,9 @@ var model = mongoose.model('browsingHistory', new mongoose.Schema({
 
 })
 );
+
+exports.getModel = function() {
+	return model;
+}
+
 

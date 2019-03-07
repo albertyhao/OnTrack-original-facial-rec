@@ -6,7 +6,8 @@ var express = require('express')
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
-
+	, configs = require('./config.js')
+	, model = require('./blacklistSchema.js').getModel()
 	, mongoose = require('mongoose')
 	, stream = require('stream')
 ;
@@ -19,38 +20,6 @@ var app = express()
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'images')));
-
-app.post('/gimmeImgUrlDamnServer', (req, res, next) => {
-	if(!req.body.image) return res.send({error: 'not good'});
-
-	const match = req.body.image.match(/^data\:image\/([a-zA-Z0-9]*);base64,(.*)/);
-	if( !match || match.length !== 3) return res.send({error: 'not good'});
-
-	const type = (match[1] + '').toLowerCase();
-	const imageData = match[2];
-	if(!type || !imageData || !['png', 'jpg', 'jpeg', 'tiff',
-		'tif', 'gif', 'bmp'].includes(type)) {
-		return res.send({error: 'not good'});
-	}
-
-	const img = Buffer.from(imageData, 'base64');
-	const filename = path.join(__dirname, `./images/${new Date()}${Math.random()}.${type}`);
-
-	var imgStream = new stream.PassThrough();
-	imgStream.end(img);
-
-	var wStream = fs.createWriteStream(filename);
-
-	imgStream.once('end', () => {
-	    res.send({filename});
-	});
-
-	imgStream.once('error', (err) => {
-			return res.send({error: 'not good'});
-	});
-
-	imgStream.pipe(wStream);
-})
 
 app.get('/', (req, res, next) => {
 	console.log('home')
@@ -103,6 +72,15 @@ app.get('/blacklist', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.post('/blacklist', (req, res, next) => {
+			
+	var badSite = new model(req.body);
+	badSite.save(function(err){
+		console.log(err || 'success');
+		res.send(err ? {err: err} : {success: true});
+	})
+})
+
 app.get('/blacklist.css', (req, res, next) => {
 	console.log('blacklist')
 	var filePath = path.join(__dirname, './blacklist.css')
@@ -146,13 +124,17 @@ app.get('/webcam.js', (req, res, next) => {
 // 	res.sendFile(filePath);
 // })
 
-server.on('listening', () => {
-	var addr = server.address()
-		, bind = typeof addr === 'string'
-			? 'pipe ' + addr
-			: 'port ' + addr.port
-	;
-	console.log('Listening on ' + bind);
-});
+function startServer(){
+	server.on('listening', () => {
+		var addr = server.address()
+			, bind = typeof addr === 'string'
+				? 'pipe ' + addr
+				: 'port ' + addr.port
+		;
+		console.log('Listening on ' + bind);
+	});
+	
+	server.listen(port);
+}
 
-server.listen(port);
+mongoose.connect(configs.dbUri, startServer);
