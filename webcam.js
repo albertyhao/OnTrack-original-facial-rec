@@ -118,12 +118,4 @@ canvas.width = 720;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(sendData, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
-
-let webviewSession = session.fromPartition(partitionName);
-webviewSession.on('will-download', function(e, item, webContents) {
-    if (item.getMimeType() === "application/pdf") {
-        e.preventDefault()
-        // logic
-    }
-})
+setInterval(sendData, 5000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
