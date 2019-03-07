@@ -39,6 +39,12 @@ app.get('/home.css', (req, res, next) => {
 	res.sendFile(filePath);
 });
 
+app.get('/login', (req, res, next) => {
+	console.log('login')
+	var filePath = path.join(__dirname, './login.html')
+	res.sendFile(filePath);
+})
+
 app.get('/signup', (req, res, next) => {
 	console.log('signup')
 	var filePath = path.join(__dirname, './signup.html')
