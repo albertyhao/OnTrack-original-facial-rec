@@ -87,8 +87,6 @@ function isHappy(data) {
   }
 }
 
-var images;
-
 var video = document.getElementById("videoElement"); // Sets the element with the id "videoElement" as video
 
 navigator.getUserMedia = navigator.getUserMedia || // Set up navigator.getUserMedia -- this is
