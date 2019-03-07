@@ -1,22 +1,29 @@
 // Windows Azure JS
 
-function sendData() {
-	userInteracted = true;
-	/* GRABBING THE PICTURE FROM THE VIDEO */
-	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+var onTab = true;
 
-	var imageDataToSend = canvas.toDataURL();
-	var req = new XMLHttpRequest();
-	req.open('POST', 'https://ai.experimentdrivenlife.com/capture/save/dataurl', true);
-	req.setRequestHeader('content-type', 'application/json');
-	req.onreadystatechange = function() {
-		if (req.readyState != 4) {
-			return;
-		}
-    processImage("https://ai.experimentdrivenlife.com/" + JSON.parse(req.response)["name"]);
-    //return JSON.parse(req.response)["name"];
-	}
-	req.send(JSON.stringify({ image: imageDataToSend }));
+document.addEventListener("visibilitychange", function() {
+  onTab = !document.hidden;
+})
+
+function sendData() {
+  if (onTab) {
+    /* GRABBING THE PICTURE FROM THE VIDEO */
+  	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  	var imageDataToSend = canvas.toDataURL();
+  	var req = new XMLHttpRequest();
+  	req.open('POST', 'https://ai.experimentdrivenlife.com/capture/save/dataurl', true);
+  	req.setRequestHeader('content-type', 'application/json');
+  	req.onreadystatechange = function() {
+  		if (req.readyState != 4) {
+  			return;
+  		}
+      processImage("https://ai.experimentdrivenlife.com/" + JSON.parse(req.response)["name"]);
+      //return JSON.parse(req.response)["name"];
+  	}
+  	req.send(JSON.stringify({ image: imageDataToSend }));
+  }
 }
 
 function processImage(theImageURL) {
