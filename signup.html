@@ -24,14 +24,48 @@
       </a>
     </div>
 
-    <div class="main">
-      <form>
-        Username: <input type="text" id="name"><br>
-        Email: <input type="text" id="email" value="filler@gmail.com"><br>
-        Password: <input type="password" id="pass"><br>
-        Confirm Password: <input type="password" id="confirmpass"><br>
-      </form>
-      <button id="submit">Submit</button>
-    </div>
+    <center>
+      <div>
+          <div><label class='label'>First Name</label></div>
+          <div><input id='firstName' type='text' class='input'/></div>
+      </div>
+
+      <div>
+          <div><label class='label'>Last Name</label></div>
+          <div><input id='lastName' type='text' class='input'/></div>
+      </div>
+
+      <div>
+          <div><label class='label'>Username</label></div>
+          <div><input id='userName'  type='text' class='input'/></div>
+      </div>
+
+      <div>
+          <div><label class='label'>Email Address</label></div>
+          <div><input id='emailAddress' type='text' class='input'/></div>
+      </div>
+
+      <div>
+          <div><label class='label'>Password</label></div>
+          <div><input id='password' type='password' class='input'/></div>
+      </div>
+  		<div>
+  				<input id="submit" type="submit" class="button btn2" value="SIGN UP"/>
+      </div>
+    </center>
+
+    <script>
+      var submitApp = function(e) {
+        var formdata = {
+          firstName: document.querySelector('#firstName').value
+          , lastName: document.querySelector('#lastName').value
+          , userName: document.querySelector('#userName').value
+          , emailAddress: document.querySelector('#emailAddress').value
+          , password: document.querySelector('#password').value
+        }
+      }
+
+      document.querySelector('#submit').addEventListener('click', submitApp);
+    </script>
   </body>
 </html>
