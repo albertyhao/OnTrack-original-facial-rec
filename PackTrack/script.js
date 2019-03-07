@@ -187,3 +187,9 @@ function blockByEmotion() {
     location.href = "https://www.entredev.org/focus";
   }
 }
+
+function resetHappyLvl() {
+  happyLvl = 0;
+}
+
+setInterval(resetHappyLvl, 3600000)
