@@ -1,4 +1,3 @@
-
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
 var onTab = true;
@@ -23,10 +22,12 @@ function checkIfLoaded(){
     badWords.find(badWord => new RegExp(badWord).test(text));
   })
 }
-checkIfLoaded();
+//checkIfLoaded();
 
 document.addEventListener("visibilitychange", function() {
   onTab = !document.hidden;
+
+
 })
 
 var happyLvl = 0
@@ -78,43 +79,40 @@ function processImage(theImageURL) {
     // Display the image.
 
     // Perform the REST API call.
-    $.ajax({
-        url: uriBase + "?" + $.param(params),
+  	var req = new XMLHttpRequest();
+  	req.open('POST', uriBase + "?" + Object.keys(params).map(key => {
+      return key + "=" + params[key];
+    }).join("&"), true);
+  	req.setRequestHeader('Content-type', 'application/json');
+    req.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+  	req.onreadystatechange = function() {
+  		if (req.readyState != 4) {
+  			return;
+  		}
 
-        // Request headers.
-        beforeSend: function(xhrObj){
-            xhrObj.setRequestHeader("Content-Type","application/json");
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-        },
+      var data = JSON.parse(req.response);
 
-        type: "POST",
-
-        // Request body.
-        data: '{"url": ' + '"' + theImageURL + '"}',
-    })
-
-    .done(function(data) {
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
+          console.log("yee")
+
           happyLvl++;
           blockByEmotion();
         }; // Console log if the face was happy or not BLA
       }
+  	}
+  	req.send(JSON.stringify({ url: theImageURL }));
 
-
-      }
-    })
-
-    .fail(function(jqXHR, textStatus, errorThrown) {
-        // Display error message.
-        var errorString = (errorThrown === "") ?
-            "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-        errorString += (jqXHR.responseText === "") ?
-            "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
-                jQuery.parseJSON(jqXHR.responseText).message :
-                    jQuery.parseJSON(jqXHR.responseText).error.message;
-        alert(errorString);
-    });
+    // .fail(function(jqXHR, textStatus, errorThrown) {
+    //     // Display error message.
+    //     var errorString = (errorThrown === "") ?
+    //         "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+    //     errorString += (jqXHR.responseText === "") ?
+    //         "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+    //             jQuery.parseJSON(jqXHR.responseText).message :
+    //                 jQuery.parseJSON(jqXHR.responseText).error.message;
+    //     alert(errorString);
+    // });
 }
 
 function isHappy(data) {
