@@ -1,6 +1,10 @@
 
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
+function createUI() {
+  alert("hi")
+}
+
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
 document.body.appendChild(img);
@@ -283,8 +287,7 @@ function blockByContent() {
 
 function blockByEmotion() {
   if (happyLvl > 3) {
-    // Add the website to the block list
+    // send url to app.post to the permanent blacklist
     location.href = "https://www.entredev.org/focus";
-    return;
   }
 }
