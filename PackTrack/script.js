@@ -1,10 +1,10 @@
 
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
-function createUI() {
-  
-  alert("hi")
-}
+// function createUI() {
+//
+//   alert("hi")
+// }
 
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
