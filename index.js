@@ -2,6 +2,7 @@ var express = require('express')
 	, path = require('path')
 	, packtrackSchema = require('./packtrackSchema.js').getModel()
 	, bodyParser = require('body-parser')
+	, usermodel = require('./schemas/user.js').getModel()
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
@@ -39,6 +40,27 @@ app.get('/signup', (req, res, next) => {
 	var filePath = path.join(__dirname, './signup.html')
 	res.sendFile(filePath);
 })
+
+app.post('/signup', (req, res, next) => {
+	var newuser = new usermodel(req.body)
+		, salt = crypto.randomBytes(128).toString('base64')
+		, password = req.body.password
+	;
+	crypto.pbkdf2(password, salt, iterations, 256, 'sha256', function(err, hash) {
+		if(err) {
+			return res.send('error');
+		}
+		newuser.password = hash.toString('base64');
+		newuser.salt = salt;
+		newuser.save(function(err, ans) {
+			req.login(newuser, function(err) {
+				if (err) { return next(err); }
+				return res.send('OK');
+			});
+		});
+	});
+
+});
 
 app.get('/blacklist', (req, res, next) => {
 	console.log('blacklist')
