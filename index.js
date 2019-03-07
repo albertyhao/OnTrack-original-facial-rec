@@ -5,6 +5,7 @@ var express = require('express')
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
+	, mongoose = require('mongoose')
 ;
 
 var app = express()
