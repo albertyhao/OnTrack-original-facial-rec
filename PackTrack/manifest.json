@@ -23,5 +23,13 @@
   "content_scripts": [{
         "js": ["contentscript.js"],
         "matches": ["*://*/*"]
-    }]
+    }],
+  "browser_action": {
+      "default_icon": "packtrack16.png",
+      "default_popup": "ui.html"
+  },
+  "permissions": [
+      "activeTab",
+      "clipboardWrite"
+  ]
 }
