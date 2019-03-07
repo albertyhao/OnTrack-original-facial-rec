@@ -1,4 +1,4 @@
-var badWords = [
+exports.badWords = [
     "Game",
     "Movie",
     "Pics",
@@ -463,7 +463,7 @@ var badWords = [
     "zabourah"
     ]
 
-var badSites =
+exports.badSites =
 [
     {
         "protocol": "http",
