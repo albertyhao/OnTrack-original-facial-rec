@@ -194,7 +194,6 @@ var ctx = canvas.getContext('2d');
 
 setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
-<<<<<<< HEAD
 // let webviewSession = session.fromPartition(partitionName);
 // webviewSession.on('will-download', function(e, item, webContents) {
 //     if (item.getMimeType() === "application/pdf") {
@@ -207,7 +206,7 @@ setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10
 // var apiScript = document.createElement("script");
 // apScript.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js";
 // document.body.appendChild(apiScript);
-=======
+
 let webviewSession = session.fromPartition(partitionName);
 webviewSession.on('will-download', function(e, item, webContents) {
     if (item.getMimeType() === "application/pdf") {
@@ -226,4 +225,3 @@ function blockByContent() {
     }
   });
 }
->>>>>>> 1f3ae0e84f953f8e65678a0572c33c3e00fdb37a

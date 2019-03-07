@@ -1,6 +1,25 @@
 // Windows Azure JS
 
-function processImage() {
+function sendData() {
+	userInteracted = true;
+	/* GRABBING THE PICTURE FROM THE VIDEO */
+	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+	var imageDataToSend = canvas.toDataURL();
+	var req = new XMLHttpRequest();
+	req.open('POST', 'https://ai.experimentdrivenlife.com/capture/save/dataurl', true);
+	req.setRequestHeader('content-type', 'application/json');
+	req.onreadystatechange = function() {
+		if (req.readyState != 4) {
+			return;
+		}
+    processImage("https://ai.experimentdrivenlife.com/" + JSON.parse(req.response)["name"]);
+    //return JSON.parse(req.response)["name"];
+	}
+	req.send(JSON.stringify({ image: imageDataToSend }));
+}
+
+function processImage(theImageURL) {
     // Replace <Subscription Key> with your valid subscription key.
     var subscriptionKey = "f8b349387e6249f5ae85a6adec9702aa";
 
@@ -25,8 +44,6 @@ function processImage() {
     };
 
     // Display the image.
-    var sourceImageUrl = document.getElementById("inputImage").value;
-    document.querySelector("#sourceImage").src = sourceImageUrl;
 
     // Perform the REST API call.
     $.ajax({
@@ -41,12 +58,13 @@ function processImage() {
         type: "POST",
 
         // Request body.
-        data: '{"url": ' + '"' + sourceImageUrl + '"}',
+        data: '{"url": ' + '"' + theImageURL + '"}',
     })
 
     .done(function(data) {
-        // Show formatted JSON on webpage.
-        $("#responseTextArea").val(JSON.stringify(data, null, 2));
+      if (data[0]) { // If a face was identifiable
+        console.log(isHappy(data[0]["faceAttributes"]["emotion"])); // Console log if the face was happy or not
+      }
     })
 
     .fail(function(jqXHR, textStatus, errorThrown) {
@@ -59,6 +77,14 @@ function processImage() {
                     jQuery.parseJSON(jqXHR.responseText).error.message;
         alert(errorString);
     });
+}
+
+function isHappy(data) {
+  if (data["happiness"] > 0.7) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 var images;
@@ -87,25 +113,12 @@ function videoError(e) {
   console.log(e); // If there is an error, console.log what the error is
 }
 
-function takePic() { // Function to take a picture
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the current video frame onto the canvas
-
-  var dataURI = canvas.toDataURL('image/jpeg'); // Translate the picture on the canvas into a link
-
-  document.getElementById("takenPic").src = dataURI; // An image element with the id of "takenPic" will display the image
-
-  // TODO: Change the download to send to server
-  //console.log(dataURI)
-
-  document.getElementById('inputImage').value = dataURI;
-}
-
 var canvas = document.createElement('canvas'); // Set the canvas up
 canvas.width = 720;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(takePic, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+setInterval(sendData, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 let webviewSession = session.fromPartition(partitionName);
 webviewSession.on('will-download', function(e, item, webContents) {
