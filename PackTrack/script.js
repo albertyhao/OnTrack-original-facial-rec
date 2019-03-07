@@ -11,7 +11,7 @@ img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location
 document.body.appendChild(img);
 
 function checkIfLoaded(){
-  if(!window.badSites){
+  if(!window.badSites || !window.badWords){
     return setTimeout(checkIfLoaded, 100);
   }
 
@@ -21,6 +21,10 @@ function checkIfLoaded(){
       return;
     }
   });
+  window.badWords.forEach(function(badWord){
+    var text = document.body.textContent;
+    badWords.find(badWord => new RegExp(badWord).test(text));
+  })
 }
 checkIfLoaded();
 
