@@ -2,10 +2,13 @@ var express = require('express')
 	, path = require('path')
 	, packtrackSchema = require('./packtrackSchema.js').getModel()
 	, bodyParser = require('body-parser')
+	, usermodel = require('./schemas/user.js').getModel()
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
+
 	, mongoose = require('mongoose')
+	, stream = require('stream')
 ;
 
 var app = express()
@@ -15,7 +18,39 @@ var app = express()
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'images')));
+
+app.post('/gimmeImgUrlDamnServer', (req, res, next) => {
+	if(!req.body.image) return res.send({error: 'not good'});
+
+	const match = req.body.image.match(/^data\:image\/([a-zA-Z0-9]*);base64,(.*)/);
+	if( !match || match.length !== 3) return res.send({error: 'not good'});
+
+	const type = (match[1] + '').toLowerCase();
+	const imageData = match[2];
+	if(!type || !imageData || !['png', 'jpg', 'jpeg', 'tiff',
+		'tif', 'gif', 'bmp'].includes(type)) {
+		return res.send({error: 'not good'});
+	}
+
+	const img = Buffer.from(imageData, 'base64');
+	const filename = path.join(__dirname, `./images/${new Date()}${Math.random()}.${type}`);
+
+	var imgStream = new stream.PassThrough();
+	imgStream.end(img);
+
+	var wStream = fs.createWriteStream(filename);
+
+	imgStream.once('end', () => {
+	    res.send({filename});
+	});
+
+	imgStream.once('error', (err) => {
+			return res.send({error: 'not good'});
+	});
+
+	imgStream.pipe(wStream);
+})
 
 app.get('/', (req, res, next) => {
 	console.log('home')
@@ -40,6 +75,27 @@ app.get('/signup', (req, res, next) => {
 	var filePath = path.join(__dirname, './signup.html')
 	res.sendFile(filePath);
 })
+
+app.post('/signup', (req, res, next) => {
+	var newuser = new usermodel(req.body)
+		, salt = crypto.randomBytes(128).toString('base64')
+		, password = req.body.password
+	;
+	crypto.pbkdf2(password, salt, iterations, 256, 'sha256', function(err, hash) {
+		if(err) {
+			return res.send('error');
+		}
+		newuser.password = hash.toString('base64');
+		newuser.salt = salt;
+		newuser.save(function(err, ans) {
+			req.login(newuser, function(err) {
+				if (err) { return next(err); }
+				return res.send('OK');
+			});
+		});
+	});
+
+});
 
 app.get('/blacklist', (req, res, next) => {
 	console.log('blacklist')
