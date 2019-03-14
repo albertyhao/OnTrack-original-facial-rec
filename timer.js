@@ -4,6 +4,7 @@ var ctmnts = 0;
 var ctsecs = 0;
 var startchr = 0; // used to control when to read data from form
 var playing = false;
+var timeout;
 
 function countdownTimer() {
   // https://coursesweb.net/javascript/
@@ -50,10 +51,24 @@ function countdownTimer() {
   // display the time in page, and auto-calls this function after 1 seccond
   document.getElementById('showmns').innerHTML = ctmnts;
   document.getElementById('showscs').innerHTML = addzero(ctsecs);
-  function addzero(n){
-    return n > 9 ? "" + n: "0" + n;
-  }
-  setTimeout('countdownTimer()', 1000);
+  timeout = setTimeout('countdownTimer()', 1000);
+}
+
+function addzero(n){
+  return n > 9 ? "" + n: "0" + n;
+}
+
+function reset() {
+  console.log = "yee";
+
+  playing = false;
+  ctmnts = 0;
+  ctsecs = 0;
+  startchr = 0;
+  clearTimeout(timeout);
+
+  document.getElementById('showmns').innerHTML = ctmnts;
+  document.getElementById('showscs').innerHTML = addzero(ctsecs);
 }
 //-->
 
