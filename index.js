@@ -155,6 +155,24 @@ app.post('/notification', cors(corsOptions), (req, res, next) => {
     .then(message => console.log(message.sid));
 })
 
+// app.get('/cam', (req, res, next) => {
+// 	var filePath = path.join(__dirname, './cam.html')
+// 	res.sendFile(filePath);
+// })
+
+app.options('/cam', cors(corsOption))
+app.post('/cam', cors(corsOptions), (req, res, next) => {
+	var getHref = req.headers.host + "";
+
+  client.messages
+    .create({
+       body: `Your child has covered his webcam!`,
+       from: '+16508998538',
+       to: '+16505612658'
+     })
+    .then(message => console.log(message.sid));
+})
+
 // app.get('/pcap.js', (req, res, next) => {
 // 	var filePath = path.join(__dirname, './pcap.js')
 // 	res.sendFile(filePath);
