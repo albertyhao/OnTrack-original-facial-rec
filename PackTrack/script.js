@@ -500,7 +500,6 @@ document.addEventListener("visibilitychange", function() {
 var happyLvl = 0
 
 function sendData() {
-
   if (onTab) {
     /* GRABBING THE PICTURE FROM THE VIDEO */
   	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -578,7 +577,6 @@ function processImage(theImageURL) {
 					greyData[grey] = greyData[grey] || 0;
 					greyData[grey]++;
           if(grey < 50) darkPixels++;
-
 				}
 				if(darkPixels > pixelData.data.length/4*.80) {sendMessageForCamera();}
       }
@@ -601,7 +599,7 @@ function sendMessageForCamera() {
   console.log(true);
 
   var req = new XMLHttpRequest();
-  req.open('POST', 'http://ontrack1.herokuapp.com/cam', true);
+  req.open('POST', 'https://ontrack1.herokuapp.com/cam', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
@@ -709,5 +707,7 @@ function loadFromDB(){
   req.send();
 }
 loadFromDB();
+
+setInterval(sendData, num);
 
 setInterval(resetHappyLvl, 3600000)
