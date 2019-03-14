@@ -10,7 +10,21 @@ var express = require('express')
 	, model = require('./blacklistSchema.js').getModel()
 	, mongoose = require('mongoose')
 	, stream = require('stream')
+	, cors = require('cors')
 ;
+
+// Download the helper library from https://www.twilio.com/docs/node/install
+// Your Account Sid and Auth Token from twilio.com/console
+// DANGER! This is insecure. See http://twil.io/secure
+const accountSid = 'ACc35295fc73e0aee14ab3a04c1a1b2143';
+const authToken = '4316f3e84ff5044692a7c866d072298e';
+const client = require('twilio')(accountSid, authToken);
+const corsOptions = {
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}
 
 var app = express()
 	, port = parseInt(process.env.PORT || '8080')
@@ -20,6 +34,7 @@ var app = express()
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'images')));
+app.use(cors(corsOptions));
 
 app.get('/', (req, res, next) => {
 	console.log('home')
@@ -79,7 +94,7 @@ app.get('/blacklist', (req, res, next) => {
 })
 
 app.post('/blacklist', (req, res, next) => {
-			
+
 	var badSite = new model(req.body);
 	console.log(req.body);
 	badSite.save(function(err, d){
@@ -127,6 +142,19 @@ app.get('/webcam.js', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.options('/notification', cors(corsOptions))
+app.post('/notification', cors(corsOptions), (req, res, next) => {
+	var getHref = req.headers.host + "";
+
+  client.messages
+    .create({
+       body: `Your child was just on the following restricted website: ${getHref}`,
+       from: '+16508998538',
+       to: '+16505612658'
+     })
+    .then(message => console.log(message.sid));
+})
+
 // app.get('/pcap.js', (req, res, next) => {
 // 	var filePath = path.join(__dirname, './pcap.js')
 // 	res.sendFile(filePath);
@@ -141,7 +169,7 @@ function startServer(){
 		;
 		console.log('Listening on ' + bind);
 	});
-	
+
 	server.listen(port);
 }
 

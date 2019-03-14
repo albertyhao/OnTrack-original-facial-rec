@@ -15,7 +15,7 @@ function addNewBlacklist() {
   }
   req.send(JSON.stringify({
     protocol: 'http',
-    domain: document.querySelector('#askForBlacklist').value,
+    domain: location.href,
     path: null,
     subdomain: 'www',
     host: null,
