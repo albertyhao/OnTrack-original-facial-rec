@@ -92,10 +92,10 @@ function processImage(theImageURL) {
 
       var data = JSON.parse(req.response);
 
+      console.log("yee")
+
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
-          console.log("yee")
-
           happyLvl++;
           blockByEmotion();
         }; // Console log if the face was happy or not BLA
@@ -166,7 +166,7 @@ canvas.width = 640;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(sendData, 2500); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+setInterval(sendData, 1000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 var siteText = document.body.textContent;
 function blockByContent() {
