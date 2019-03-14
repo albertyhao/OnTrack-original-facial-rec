@@ -1,6 +1,7 @@
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
 var onTab = true;
+var num = 5000;
 
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
@@ -13,6 +14,8 @@ function checkIfLoaded(){
 
   window.badSites.forEach(function(badSite){
     if(location.hostname.endsWith(badSite.parent_domain)){
+      sendMessage();
+
       location.href = "https://www.entredev.org/focus";
       return;
     }
@@ -33,6 +36,8 @@ document.addEventListener("visibilitychange", function() {
 var happyLvl = 0
 
 function sendData() {
+  console.log(num)
+
   if (onTab) {
     /* GRABBING THE PICTURE FROM THE VIDEO */
   	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -92,7 +97,7 @@ function processImage(theImageURL) {
 
       var data = JSON.parse(req.response);
 
-      console.log("yee")
+      console.log(data)
 
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
@@ -166,7 +171,7 @@ canvas.width = 640;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(sendData, 1000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+setInterval(sendData, num); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 var siteText = document.body.textContent;
 function blockByContent() {
@@ -179,10 +184,20 @@ function blockByContent() {
   });
 }
 
+function sendMessage() {
+  var req = new XMLHttpRequest();
+  req.open('POST', 'http://ontrack1.herokuapp.com/notification', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) { return; }
+    location.href = "https://www.entredev.org/focus";
+  }
+  req.send();
+}
+
 function blockByEmotion() {
   if (happyLvl > 0) {
-    // send url to app.post to the permanent blacklist
-    location.href = "https://www.entredev.org/focus";
+    sendMessage();
   }
 }
 
