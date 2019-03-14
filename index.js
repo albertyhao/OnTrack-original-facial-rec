@@ -18,6 +18,7 @@ var express = require('express')
 // DANGER! This is insecure. See http://twil.io/secure
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE;
 const client = require('twilio')(accountSid, authToken);
 const corsOptions = {
   "origin": "*",
@@ -156,7 +157,7 @@ app.post('/notification', cors(corsOptions), (req, res, next) => {
   client.messages
     .create({
        body: `Your child was just on the following restricted website: ${getHref}`,
-       from: '+16508998538',
+       from: twilioPhone,
        to: '+16505612658'
      })
     .then(message => console.log(message.sid));
@@ -174,7 +175,7 @@ app.post('/cam', cors(corsOptions), (req, res, next) => {
   client.messages
     .create({
        body: `Your child has covered his webcam!`,
-       from: '+16508998538',
+       from: twilioPhone,
        to: '+16505612658'
      })
     .then(message => console.log(message.sid));
