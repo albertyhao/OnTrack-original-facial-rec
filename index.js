@@ -16,8 +16,8 @@ var express = require('express')
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
-const accountSid = 'ACc35295fc73e0aee14ab3a04c1a1b2143';
-const authToken = '4316f3e84ff5044692a7c866d072298e';
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const corsOptions = {
   "origin": "*",

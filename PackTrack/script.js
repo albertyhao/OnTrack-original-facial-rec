@@ -675,7 +675,7 @@ function blockByContent() {
 
 function sendMessage() {
   var req = new XMLHttpRequest();
-  req.open('POST', 'http://ontrack1.herokuapp.com/notification', true);
+  req.open('POST', 'https://ontrack1.herokuapp.com/notification', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
@@ -697,7 +697,7 @@ function resetHappyLvl() {
 
 function loadFromDB(){
   var req = new XMLHttpRequest();
-  req.open('GET', 'http://localhost:8080/allblacklist', true);
+  req.open('GET', 'https://ontrack1.herokuapp.com/allblacklist', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function(){
     if(req.readyState != 4){
