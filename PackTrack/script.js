@@ -8,8 +8,12 @@ img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location
 document.body.appendChild(img);
 
 function checkIfLoaded(){
+  console.log(window.badWords)
+
   if(!window.badSites || !window.badWords){
+    console.log("timeout")
     return setTimeout(checkIfLoaded, 100);
+
   }
 
   window.badSites.forEach(function(badSite){
@@ -17,15 +21,17 @@ function checkIfLoaded(){
       sendMessage();
 
       location.href = "https://www.entredev.org/focus";
+      console.log("badsite")
       return;
     }
   });
   window.badWords.forEach(function(badWord){
     var text = document.body.textContent;
     badWords.find(badWord => new RegExp(badWord).test(text));
+    console.log("badWord")
   })
 }
-//checkIfLoaded();
+checkIfLoaded();
 
 document.addEventListener("visibilitychange", function() {
   onTab = !document.hidden;
@@ -203,6 +209,10 @@ function blockByEmotion() {
 
 function resetHappyLvl() {
   happyLvl = 0;
+}
+
+function blockByBlacklist() {
+
 }
 
 setInterval(resetHappyLvl, 3600000)

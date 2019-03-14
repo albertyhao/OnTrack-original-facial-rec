@@ -1,3 +1,4 @@
+
 exports.badWords = [
     "Game",
     "Movie",
