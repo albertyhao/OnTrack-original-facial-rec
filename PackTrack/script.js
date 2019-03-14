@@ -166,7 +166,7 @@ canvas.width = 640;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(sendData, 10000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+setInterval(sendData, 2500); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 var siteText = document.body.textContent;
 function blockByContent() {
@@ -180,7 +180,7 @@ function blockByContent() {
 }
 
 function blockByEmotion() {
-  if (happyLvl > 3) {
+  if (happyLvl > 0) {
     // send url to app.post to the permanent blacklist
     location.href = "https://www.entredev.org/focus";
   }
