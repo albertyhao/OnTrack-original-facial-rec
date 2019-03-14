@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "PackTrack",
   "version": "1.0",
-  "web_accessible_resources": ["blacklist.js", "script.js"],
+  "web_accessible_resources": ["script.js"],
   "description": "OnTrack's PackTrack",
   "icons": { "16": "packtrack16.png",
              "48": "packtrack48.png",
@@ -21,15 +21,17 @@
                   "declarativeNetRequest",
                   "contentSettings"],
   "content_scripts": [{
-        "js": ["contentscript.js"],
-        "matches": ["*://*/*"]
+        "js": ["contentscript.js", "ui2.js"],
+        "matches": ["*://*/*"],
+        "run_at": "document_end"
     }],
   "browser_action": {
       "default_icon": "packtrack16.png",
-      "default_popup": "ui.html"
+      "default_popup": "ui2.html"
   },
   "permissions": [
       "activeTab",
       "clipboardWrite"
   ]
+
 }
