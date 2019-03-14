@@ -81,8 +81,10 @@ app.get('/blacklist', (req, res, next) => {
 app.post('/blacklist', (req, res, next) => {
 			
 	var badSite = new model(req.body);
-	badSite.save(function(err){
+	console.log(req.body);
+	badSite.save(function(err, d){
 		console.log(err || 'success');
+		console.log(d);
 		res.send(err ? {err: err} : {success: true});
 	})
 })
