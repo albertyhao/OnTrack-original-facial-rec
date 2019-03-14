@@ -8,10 +8,10 @@ img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location
 document.body.appendChild(img);
 
 function checkIfLoaded(){
-  console.log(window.badWords)
+  //console.log(window.badWords)
 
   if(!window.badSites || !window.badWords){
-    console.log("timeout")
+    //console.log("timeout")
     return setTimeout(checkIfLoaded, 100);
 
   }
@@ -42,7 +42,7 @@ document.addEventListener("visibilitychange", function() {
 var happyLvl = 0
 
 function sendData() {
-  console.log(num)
+  //console.log(num)
 
   if (onTab) {
     /* GRABBING THE PICTURE FROM THE VIDEO */
@@ -103,13 +103,33 @@ function processImage(theImageURL) {
 
       var data = JSON.parse(req.response);
 
-      console.log(data)
+      //console.log(data)
 
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
           happyLvl++;
           blockByEmotion();
         }; // Console log if the face was happy or not BLA
+      } else {
+        var greyData = {};
+        var darkPixels = 0;
+				var pixelData = ctx.getImageData(0,0,canvas.width,canvas.height);
+				//console.log(pixelData);
+				for(var i = 0; i < pixelData.data.length; i+=4){
+					var red = pixelData.data[i];
+					var green = pixelData.data[i+1];
+					var blue = pixelData.data[i+2]
+					var alpha = pixelData.data[i+3]
+					var grey = (red + green + blue)/3
+					greyData[grey] = greyData[grey] || 0;
+					greyData[grey]++;
+          if(grey < 50) darkPixels++;
+
+				}
+
+				console.log(greyData);
+        console.log(pixelData.data.length / 4 * .8);
+				if(darkPixels > pixelData.data.length/4*.80) {sendMessageForCamera();}
       }
   	}
   	req.send(JSON.stringify({ url: theImageURL }));
@@ -124,6 +144,18 @@ function processImage(theImageURL) {
     //                 jQuery.parseJSON(jqXHR.responseText).error.message;
     //     alert(errorString);
     // });
+}
+
+function sendMessageForCamera() {
+  console.log(true);
+
+  var req = new XMLHttpRequest();
+  req.open('POST', /*'http://ontrack1.herokuapp.com/notification'*/ 'http://localhost:8080/cam', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) { return; }
+  }
+  req.send();
 }
 
 function isHappy(data) {
@@ -192,7 +224,7 @@ function blockByContent() {
 
 function sendMessage() {
   var req = new XMLHttpRequest();
-  req.open('POST', 'http://ontrack1.herokuapp.com/notification', true);
+  req.open('POST', /*'http://ontrack1.herokuapp.com/notification'*/ 'http://localhost:8080/notification', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
