@@ -116,7 +116,7 @@ function processImage(theImageURL) {
 }
 
 function isHappy(data) {
-  if (data["happiness"] > 0.7) {
+  if (data["happiness"] > 0.8) {
     return true;
   } else {
     return false;
