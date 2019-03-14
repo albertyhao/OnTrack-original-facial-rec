@@ -21,6 +21,9 @@ var model = mongoose.model('blacklist', new mongoose.Schema({
   },
   parentDomain: {
       type: String
+  },
+  manuallyAdded: {
+    type: Boolean, default: false
   }
 
 })

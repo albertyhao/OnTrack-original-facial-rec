@@ -1,26 +1,26 @@
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
 var onTab = true;
-
+var blacklist;
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
 document.body.appendChild(img);
 
 function checkIfLoaded(){
-  if(!window.badSites || !window.badWords){
-    return setTimeout(checkIfLoaded, 100);
+  if(!blacklist){
+    return;
   }
 
-  window.badSites.forEach(function(badSite){
-    if(location.hostname.endsWith(badSite.parent_domain)){
+  blacklist.forEach(function(badSite){
+    if(location.hostname.endsWith(badSite.domain)){
       location.href = "https://www.entredev.org/focus";
       return;
     }
   });
-  window.badWords.forEach(function(badWord){
-    var text = document.body.textContent;
-    badWords.find(badWord => new RegExp(badWord).test(text));
-  })
+  // window.badWords.forEach(function(badWord){
+  //   var text = document.body.textContent;
+  //   badWords.find(badWord => new RegExp(badWord).test(text));
+  // })
 }
 //checkIfLoaded();
 
@@ -166,7 +166,7 @@ canvas.width = 640;
 canvas.height = 480;
 var ctx = canvas.getContext('2d');
 
-setInterval(sendData, 1000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
+//setInterval(sendData, 1000); // Sets an interval where every single 10000 ms (10 sec) it will call takePic
 
 var siteText = document.body.textContent;
 function blockByContent() {
@@ -189,5 +189,21 @@ function blockByEmotion() {
 function resetHappyLvl() {
   happyLvl = 0;
 }
+
+
+function loadFromDB(){
+  var req = new XMLHttpRequest();
+  req.open('GET', 'http://localhost:8080/allblacklist', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function(){
+    if(req.readyState != 4){
+      return;
+    }
+    blacklist = JSON.parse(req.response);
+    checkIfLoaded();
+  }
+  req.send();
+}
+loadFromDB();
 
 setInterval(resetHappyLvl, 3600000)

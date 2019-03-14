@@ -81,6 +81,7 @@ app.get('/blacklist', (req, res, next) => {
 app.post('/blacklist', (req, res, next) => {
 			
 	var badSite = new model(req.body);
+	badSite.manuallyAdded = true;
 	console.log(req.body);
 	badSite.save(function(err, d){
 		console.log(err || 'success');
@@ -99,6 +100,12 @@ app.get('/blacklist.js', (req, res, next) => {
 	console.log('blacklist')
 	var filePath = path.join(__dirname, './blacklist.js')
 	res.sendFile(filePath);
+})
+
+app.get('/allblacklist', (req, res, next) => {
+	model.find({}).select('domain manuallyAdded').exec(function (err, docs){
+		res.send(docs);
+	})
 })
 
 app.get('/settings', (req, res, next) => {
