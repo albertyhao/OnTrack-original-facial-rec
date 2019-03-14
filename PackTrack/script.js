@@ -2,6 +2,8 @@
 
 var onTab = true;
 var blacklist;
+var num = 5000;
+
 var img = document.createElement('img');
 img.src = "http://albert.entredev.com?url=" + encodeURIComponent(window.location.href);
 document.body.appendChild(img);
@@ -14,6 +16,7 @@ function checkIfLoaded(){
   blacklist.forEach(function(badSite){
     if(location.hostname.endsWith(badSite.domain)){
       location.href = "https://www.entredev.org/focus";
+      console.log("badsite")
       return;
     }
   });
@@ -22,7 +25,7 @@ function checkIfLoaded(){
   //   badWords.find(badWord => new RegExp(badWord).test(text));
   // })
 }
-//checkIfLoaded();
+checkIfLoaded();
 
 document.addEventListener("visibilitychange", function() {
   onTab = !document.hidden;
@@ -33,6 +36,8 @@ document.addEventListener("visibilitychange", function() {
 var happyLvl = 0
 
 function sendData() {
+  console.log(num)
+
   if (onTab) {
     /* GRABBING THE PICTURE FROM THE VIDEO */
   	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -92,7 +97,7 @@ function processImage(theImageURL) {
 
       var data = JSON.parse(req.response);
 
-      console.log("yee")
+      console.log(data)
 
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
@@ -179,10 +184,20 @@ function blockByContent() {
   });
 }
 
+function sendMessage() {
+  var req = new XMLHttpRequest();
+  req.open('POST', 'http://ontrack1.herokuapp.com/notification', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) { return; }
+    location.href = "https://www.entredev.org/focus";
+  }
+  req.send();
+}
+
 function blockByEmotion() {
   if (happyLvl > 0) {
-    // send url to app.post to the permanent blacklist
-    location.href = "https://www.entredev.org/focus";
+    sendMessage();
   }
 }
 
