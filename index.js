@@ -155,8 +155,12 @@ app.post('/notification', cors(corsOptions), (req, res, next) => {
     .then(message => console.log(message.sid));
 })
 
+// app.get('/cam', (req, res, next) => {
+// 	var filePath = path.join(__dirname, './cam.html')
+// 	res.sendFile(filePath);
+// })
 
-
+app.options('/cam', cors(corsOption))
 app.post('/cam', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.host + "";
 
