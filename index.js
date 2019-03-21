@@ -152,7 +152,7 @@ app.get('/webcam.js', (req, res, next) => {
 
 app.options('/notification', cors(corsOptions))
 app.post('/notification', cors(corsOptions), (req, res, next) => {
-	var getHref = req.headers.host + "";
+	var getHref = req.headers.referer + "";
 
   client.messages
     .create({
