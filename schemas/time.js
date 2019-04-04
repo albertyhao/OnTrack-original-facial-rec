@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var model = mongoose.model('time', new mongoose.Schema({
-  secs: {type: Integer},
+  secs: {type: Number},
   //user: {type: String},
   date: {type: Date},
   website: {type: String}

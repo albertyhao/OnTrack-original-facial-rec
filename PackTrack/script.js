@@ -701,6 +701,8 @@ function resetHappyLvl() {
 function stopwatch() {
   ctsecs++;
 
+  console.log(ctsecs);
+
   timeout = setTimeout('stopwatch()', 1000);
 }
 
@@ -709,11 +711,11 @@ function startTimer() {
 }
 
 function stopTimer() {
-  if (ctsecs > 60) {
+  //if (ctsecs > 60) {
     var date = new Date();
     sendTimesToDB(ctsecs, location.host, date.getTime());
     ctsecs = 0;
-  }
+  //}
   clearTimeout(timeout);
 }
 
@@ -730,6 +732,8 @@ function sendTimesToDB(secs, website, timeStamp) {
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
+
+    console.log('sent')
   }
   req.send(JSON.stringify(package));
 }
