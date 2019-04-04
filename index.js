@@ -3,11 +3,12 @@ var express = require('express')
 	, packtrackSchema = require('./packtrackSchema.js').getModel()
 	, bodyParser = require('body-parser')
 	, usermodel = require('./schemas/user.js').getModel()
+	, timemodel = require('./schemas/time.js').getModel()
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
 	, configs = require('./config.js')
-	, model = require('./blacklistSchema.js').getModel()
+	, model = require('./schemas/blacklistSchema.js').getModel()
 	, mongoose = require('mongoose')
 	, stream = require('stream')
 	, cors = require('cors')
@@ -154,31 +155,33 @@ app.options('/notification', cors(corsOptions))
 app.post('/notification', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.referer + "";
 
-  client.messages
-    .create({
-       body: `Your child was just on the following restricted website: ${getHref}`,
-       from: twilioPhone,
-       to: '+16505612658'
-     })
-    .then(message => console.log(message.sid));
-})
-
-app.get('/cam', (req, res, next) => {
-	var filePath = path.join(__dirname, './cam.html')
-	res.sendFile(filePath);
+  // client.messages
+  //   .create({
+  //      body: `Your child was just on the following restricted website: ${getHref}`,
+  //      from: twilioPhone,
+  //      to: '+16505612658'
+  //    })
+  //   .then(message => console.log(message.sid));
 })
 
 app.options('/cam', cors(corsOptions))
 app.post('/cam', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.host + "";
 
-  client.messages
-    .create({
-       body: `Your child has covered his webcam!`,
-       from: twilioPhone,
-       to: '+16505612658'
-     })
-    .then(message => console.log(message.sid));
+  // client.messages
+  //   .create({
+  //      body: `Your child has covered their webcam!`,
+  //      from: twilioPhone,
+  //      to: '+16505612658'
+  //    })
+  //   .then(message => console.log(message.sid));
+})
+
+app.options('/timespent', cors(corsOptions))
+app.post('/timespent', cors(corsOptions), (req, res, next) => {
+	var timespent = new timemodel(req.body);
+	timespent.save();
+	res.send("Yeet");
 })
 
 // app.get('/pcap.js', (req, res, next) => {

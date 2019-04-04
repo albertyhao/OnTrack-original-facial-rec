@@ -1,5 +1,9 @@
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
+var ctmnts = 0;
+var ctsecs = 0;
+var timeout;
+
 var onTab = true;
 var blacklist;
 var num = 7500;
@@ -494,10 +498,11 @@ function checkIfLoaded(){
 document.addEventListener("visibilitychange", function() {
   onTab = !document.hidden;
 
-
+  if (onTab) {startTimer()}
+  if (!onTab) {stopTimer()}
 })
 
-var happyLvl = 0
+var happyLvl = 0;
 
 function sendData() {
   if (onTab) {
@@ -683,7 +688,7 @@ function sendMessage() {
 }
 
 function blockByEmotion() {
-  if (happyLvl > 0) {
+  if (happyLvl > 10) {
     sendMessage();
   }
 }
@@ -692,6 +697,45 @@ function resetHappyLvl() {
   happyLvl = 0;
 }
 
+// TIMER FUNCTIONS ----------------------------------------------------------
+function stopwatch() {
+  ctsecs++;
+
+  timeout = setTimeout('stopwatch()', 1000);
+}
+
+function startTimer() {
+  stopwatch();
+}
+
+function stopTimer() {
+  if (ctsecs > 60) {
+    var date = new Date();
+    sendTimesToDB(ctsecs, location.host, date.getTime());
+    ctsecs = 0;
+  }
+  clearTimeout(timeout);
+}
+
+function sendTimesToDB(secs, website, timeStamp) {
+  var package = {
+    secs: secs,
+    //user: true,
+    date: timeStamp,
+    website: website
+  };
+
+  var req = new XMLHttpRequest();
+  req.open('POST', 'https://ontrack1.herokuapp.com/timespent', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) { return; }
+  }
+  req.send(JSON.stringify(package));
+}
+
+startTimer();
+/////////////////////////////////////////////////////////////////////////
 
 function loadFromDB(){
   var req = new XMLHttpRequest();
