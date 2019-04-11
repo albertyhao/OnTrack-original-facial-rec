@@ -477,6 +477,16 @@ exports.badSites =
     },
     {
         "protocol": "http",
+        "domain": "www.roblox.com",
+        "path": null,
+        "subdomain": "www",
+        "host": "roblox",
+        "tld": "com",
+        "parent_domain": "roblox.com"
+
+    },
+    {
+        "protocol": "http",
         "domain": "www.youtube.com",
         "path": null,
         "subdomain": "www",

@@ -3,11 +3,12 @@ var express = require('express')
 	, packtrackSchema = require('./packtrackSchema.js').getModel()
 	, bodyParser = require('body-parser')
 	, usermodel = require('./schemas/user.js').getModel()
+	, timemodel = require('./schemas/time.js').getModel()
 	, http = require('http')
 	, async = require('async')
 	, fs = require('fs')
 	, configs = require('./config.js')
-	, model = require('./blacklistSchema.js').getModel()
+	, model = require('./schemas/blacklistSchema.js').getModel()
 	, mongoose = require('mongoose')
 	, stream = require('stream')
 	, cors = require('cors')
@@ -16,8 +17,9 @@ var express = require('express')
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
-const accountSid = 'ACc35295fc73e0aee14ab3a04c1a1b2143';
-const authToken = '4316f3e84ff5044692a7c866d072298e';
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE;
 const client = require('twilio')(accountSid, authToken);
 const corsOptions = {
   "origin": "*",
@@ -151,33 +153,35 @@ app.get('/webcam.js', (req, res, next) => {
 
 app.options('/notification', cors(corsOptions))
 app.post('/notification', cors(corsOptions), (req, res, next) => {
-	var getHref = req.headers.host + "";
+	var getHref = req.headers.referer + "";
 
-  client.messages
-    .create({
-       body: `Your child was just on the following restricted website: ${getHref}`,
-       from: '+16508998538',
-       to: '+16505612658'
-     })
-    .then(message => console.log(message.sid));
-})
-
-app.get('/cam', (req, res, next) => {
-	var filePath = path.join(__dirname, './cam.html')
-	res.sendFile(filePath);
+  // client.messages
+  //   .create({
+  //      body: `Your child was just on the following restricted website: ${getHref}`,
+  //      from: twilioPhone,
+  //      to: '+16505612658'
+  //    })
+  //   .then(message => console.log(message.sid));
 })
 
 app.options('/cam', cors(corsOptions))
 app.post('/cam', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.host + "";
 
-  client.messages
-    .create({
-       body: `Your child has covered his webcam!`,
-       from: '+16508998538',
-       to: '+16505612658'
-     })
-    .then(message => console.log(message.sid));
+  // client.messages
+  //   .create({
+  //      body: `Your child has covered their webcam!`,
+  //      from: twilioPhone,
+  //      to: '+16505612658'
+  //    })
+  //   .then(message => console.log(message.sid));
+})
+
+app.options('/timespent', cors(corsOptions))
+app.post('/timespent', cors(corsOptions), (req, res, next) => {
+	var timespent = new timemodel(req.body);
+	timespent.save();
+	res.send("Yeet");
 })
 
 // app.get('/pcap.js', (req, res, next) => {

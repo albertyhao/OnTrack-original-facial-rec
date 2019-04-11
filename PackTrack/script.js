@@ -1,8 +1,12 @@
 // Big lol: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
+var ctmnts = 0;
+var ctsecs = 0;
+var timeout;
+
 var onTab = true;
 var blacklist;
-var num = 5000;
+var num = 7500;
 var badWords = [
   "Game",
   "Movie",
@@ -494,13 +498,13 @@ function checkIfLoaded(){
 document.addEventListener("visibilitychange", function() {
   onTab = !document.hidden;
 
-
+  if (onTab) {startTimer()}
+  if (!onTab) {stopTimer()}
 })
 
-var happyLvl = 0
+var happyLvl = 0;
 
 function sendData() {
-
   if (onTab) {
     /* GRABBING THE PICTURE FROM THE VIDEO */
   	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -522,7 +526,7 @@ function sendData() {
 
 function processImage(theImageURL) {
     // Replace <Subscription Key> with your valid subscription key.
-    var subscriptionKey = "f8b349387e6249f5ae85a6adec9702aa";
+    var subscriptionKey = "5de4bab726d5444b9f1d7c9505c41769";
 
     // NOTE: You must use the same region in your REST call as you used to
     // obtain your subscription keys. For example, if you obtained your
@@ -539,9 +543,7 @@ function processImage(theImageURL) {
     var params = {
         "returnFaceId": "true",
         "returnFaceLandmarks": "false",
-        "returnFaceAttributes":
-            "age,gender,headPose,smile,facialHair,glasses,emotion," +
-            "hair,makeup,occlusion,accessories,blur,exposure,noise"
+        "returnFaceAttributes": "emotion"
     };
 
     // Display the image.
@@ -559,6 +561,8 @@ function processImage(theImageURL) {
   		}
 
       var data = JSON.parse(req.response);
+
+      console.log(data);
 
       if (data[0]) { // If a face was identifiable
         if (isHappy(data[0]["faceAttributes"]["emotion"])) {
@@ -578,7 +582,6 @@ function processImage(theImageURL) {
 					greyData[grey] = greyData[grey] || 0;
 					greyData[grey]++;
           if(grey < 50) darkPixels++;
-
 				}
 				if(darkPixels > pixelData.data.length/4*.80) {sendMessageForCamera();}
       }
@@ -601,7 +604,7 @@ function sendMessageForCamera() {
   console.log(true);
 
   var req = new XMLHttpRequest();
-  req.open('POST', 'http://ontrack1.herokuapp.com/cam', true);
+  req.open('POST', 'https://ontrack1.herokuapp.com/cam', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
@@ -675,7 +678,7 @@ function blockByContent() {
 
 function sendMessage() {
   var req = new XMLHttpRequest();
-  req.open('POST', 'http://ontrack1.herokuapp.com/notification', true);
+  req.open('POST', 'https://ontrack1.herokuapp.com/notification', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
@@ -685,7 +688,7 @@ function sendMessage() {
 }
 
 function blockByEmotion() {
-  if (happyLvl > 0) {
+  if (happyLvl > 10) {
     sendMessage();
   }
 }
@@ -694,10 +697,53 @@ function resetHappyLvl() {
   happyLvl = 0;
 }
 
+// TIMER FUNCTIONS ----------------------------------------------------------
+function stopwatch() {
+  ctsecs++;
+
+  console.log(ctsecs);
+
+  timeout = setTimeout('stopwatch()', 1000);
+}
+
+function startTimer() {
+  stopwatch();
+}
+
+function stopTimer() {
+  //if (ctsecs > 60) {
+    var date = new Date();
+    sendTimesToDB(ctsecs, location.host, date.getTime());
+    ctsecs = 0;
+  //}
+  clearTimeout(timeout);
+}
+
+function sendTimesToDB(secs, website, timeStamp) {
+  var package = {
+    secs: secs,
+    //user: true,
+    date: timeStamp,
+    website: website
+  };
+
+  var req = new XMLHttpRequest();
+  req.open('POST', 'https://ontrack1.herokuapp.com/timespent', true);
+  req.setRequestHeader('content-type', 'application/json');
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) { return; }
+
+    console.log('sent')
+  }
+  req.send(JSON.stringify(package));
+}
+
+startTimer();
+/////////////////////////////////////////////////////////////////////////
 
 function loadFromDB(){
   var req = new XMLHttpRequest();
-  req.open('GET', 'http://localhost:8080/allblacklist', true);
+  req.open('GET', 'https://ontrack1.herokuapp.com/allblacklist', true);
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function(){
     if(req.readyState != 4){
@@ -709,5 +755,7 @@ function loadFromDB(){
   req.send();
 }
 loadFromDB();
+
+setInterval(sendData, num);
 
 setInterval(resetHappyLvl, 3600000)
