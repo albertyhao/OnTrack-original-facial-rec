@@ -27,7 +27,6 @@ var badWords = [
   "Fanatic",
   "pimp",
   "sexy",
-  "cam",
   "lust",
   "slut",
   "ass",
