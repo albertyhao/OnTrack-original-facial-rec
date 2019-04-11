@@ -713,7 +713,7 @@ function startTimer() {
 function stopTimer() {
   //if (ctsecs > 60) {
     var date = new Date();
-    sendTimesToDB(ctsecs, location.host, date.getTime());
+    sendTimesToDB(ctsecs, location.href, date.getTime());
     ctsecs = 0;
   //}
   clearTimeout(timeout);
