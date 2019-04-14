@@ -612,7 +612,7 @@ function sendMessageForCamera() {
 }
 
 function isHappy(data) {
-  if (data["happiness"] > 0.8) {
+  if (data["happiness"] > 0.5) {
     return true;
   } else {
     return false;
@@ -687,7 +687,7 @@ function sendMessage() {
 }
 
 function blockByEmotion() {
-  if (happyLvl > 10) {
+  if (happyLvl > 0) {
     sendMessage();
   }
 }
@@ -731,8 +731,6 @@ function sendTimesToDB(secs, website, timeStamp) {
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
-
-    console.log('sent')
   }
   req.send(JSON.stringify(package));
 }
