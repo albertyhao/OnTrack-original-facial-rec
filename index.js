@@ -158,26 +158,28 @@ app.options('/notification', cors(corsOptions))
 app.post('/notification', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.referer + "";
 
-  // client.messages
-  //   .create({
-  //      body: `Your child was just on the following restricted website: ${getHref}`,
-  //      from: twilioPhone,
-  //      to: '+16505612658'
-  //    })
-  //   .then(message => console.log(message.sid));
+  client.messages
+    .create({
+       body: `Your child was just on the following restricted website: ${getHref}`,
+       from: twilioPhone,
+       to: '+16505612658'
+     })
+    .then(message => console.log(message.sid));
+	res.send('pew')
 })
 
 app.options('/cam', cors(corsOptions))
 app.post('/cam', cors(corsOptions), (req, res, next) => {
 	var getHref = req.headers.host + "";
 
-  // client.messages
-  //   .create({
-  //      body: `Your child has covered their webcam!`,
-  //      from: twilioPhone,
-  //      to: '+16505612658'
-  //    })
-  //   .then(message => console.log(message.sid));
+  client.messages
+    .create({
+       body: `Your child has covered their webcam!`,
+       from: twilioPhone,
+       to: '+16505612658'
+     })
+    .then(message => console.log(message.sid));
+	res.send("pew")
 })
 
 app.options('/timespent', cors(corsOptions))
