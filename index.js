@@ -12,15 +12,18 @@ var express = require('express')
 	, mongoose = require('mongoose')
 	, stream = require('stream')
 	, cors = require('cors')
+	, pbt = require('./pbt.js')
 ;
+
+console.log('pbt', pbt);
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_TOKEN;
-const twilioPhone = process.env.TWILIO_PHONE;
-const client = require('twilio')(accountSid, authToken);
+// const accountSid = process.env.TWILIO_SID;
+// const authToken = process.env.TWILIO_TOKEN;
+// const twilioPhone = process.env.TWILIO_PHONE;
+// const client = require('twilio')(accountSid, authToken);
 const corsOptions = {
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -189,7 +192,8 @@ app.post('/timespent', cors(corsOptions), (req, res, next) => {
 // 	res.sendFile(filePath);
 // })
 
-function startServer(){
+function startServer() {
+	pbt.scrape(timemodel);
 	server.on('listening', () => {
 		var addr = server.address()
 			, bind = typeof addr === 'string'
@@ -201,5 +205,10 @@ function startServer(){
 
 	server.listen(port);
 }
+
+
+
+
+
 
 mongoose.connect(configs.dbUri, startServer);
