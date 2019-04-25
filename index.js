@@ -116,6 +116,11 @@ app.get('/blacklist.css', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.get('/options.html', (req, res, next) => {
+	var filePath = path.join(__dirname, './options.html')
+	res.sendFile(filePath);
+})
+
 app.get('/blacklist.js', (req, res, next) => {
 	console.log('blacklist')
 	var filePath = path.join(__dirname, './blacklist.js')
