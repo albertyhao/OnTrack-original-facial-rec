@@ -139,6 +139,49 @@ app.get('/settings.js', (req, res, next) => {
 	res.sendFile(filePath);
 })
 
+app.get('/plots', (req, res, next) => {
+	console.log('plots')
+	var mongoose = require('mongoose');
+	var timeModel = require('./schemas/time.js').getModel();
+	var url = require('url');
+	timeModel.find({}).select('secs website').exec((err, data) => {
+		var timeWebsites = {};
+		data.forEach(item => {
+			const seconds = item.secs
+			const domain = url.parse(item.website).host;
+			console.log(domain, seconds);
+			if (!timeWebsites[domain]) {
+				timeWebsites[domain] = seconds;
+			}
+			else {
+				timeWebsites[domain] += seconds;
+			}
+		})
+		console.log(timeWebsites);
+		var sortedKeys = Object.keys(timeWebsites).sort((a,b) =>{
+			return timeWebsites[a]>timeWebsites[b]?-1:1
+		})
+
+		var seconds = [
+			{domain: sortedKeys[0], seconds: timeWebsites[sortedKeys[0]]},
+			{domain: sortedKeys[1], seconds: timeWebsites[sortedKeys[1]]},
+			{domain: sortedKeys[2], seconds: timeWebsites[sortedKeys[2]]},
+			{domain: sortedKeys[3], seconds: timeWebsites[sortedKeys[3]]},
+			{domain: sortedKeys[4], seconds: timeWebsites[sortedKeys[4]]}
+		]
+		var sum = 0
+		sortedKeys.forEach(function(key) {
+			sum += timeWebsites[key]
+		})
+		var filePath = path.join(__dirname, './plots.html')
+		var fileData = fs.readFileSync(filePath, "utf8")
+		fileData = fileData.replace("{{data}}", JSON.stringify({sortedKeys, sum, seconds}))
+		res.send(fileData);
+
+		console.log(sortedKeys)
+		})
+	})
+
 app.get('/navbar.css', (req, res, next) => {
 	var filePath = path.join(__dirname, './navbar.css')
 	res.sendFile(filePath);

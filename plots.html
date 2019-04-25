@@ -134,50 +134,53 @@
 		</main>
 		<footer></footer>
 		<script>
+		var sortedData = {{data}};
+		console.log(sortedData);
+		sortedData[]
+
 			var pieChartData = [{
-              values: [19, 26, 55],
-              labels: ['Netflix', 'Wikipedia', 'Canvas'],
-              type: 'pie'
-            }];
+				values: [19, 26, 55],
+				labels: [sortedData[sortedKeys][0], sortedData[sortedKeys][1], sortedData[sortedKeys][2], sortedData[sortedKeys][3], sortedData[sortedKeys][4]], // I used python syntax instead of JS syntax, but this line should call the top five domains.
+				type: 'pie'
+			}];
 
-            var pitChartLayout = {
-              height: 400,
-              width: 500
-            };
-
-            Plotly.newPlot('pieChart', pieChartData, pitChartLayout);
+			var pitChartLayout = {
+				height: 400,
+				width: 500
+			};
+			Plotly.newPlot('pieChart', pieChartData, pitChartLayout);
 
             // line graph data
 
-            var prodOverTime = {
-              x: [1, 2, 3, 4],
-              y: [4, 9, 13, 14],
-              type: 'scatter',
-              name: "Productivity over Time"
-            };
+      var prodOverTime = {
+        x: [1, 2, 3, 4],
+        y: [4, 9, 13, 14],
+        type: 'scatter',
+        name: "Productivity over Time"
+      };
 
-            var trace2 = {
-              x: [1, 2, 3, 4],
-              y: [16, 5, 11, 9],
-              type: 'scatter'
-            };
+      var trace2 = {
+        x: [1, 2, 3, 4],
+        y: [16, 5, 11, 9],
+        type: 'scatter'
+      };
 
-            var lineGraphLayout = {
-              title: 'Productivity Rating over Time',
-              xaxis: {
-                title: '{}s  ', // fix this
-                showgrid: false,
-                zeroline: false
-              },
-              yaxis: {
-                title: 'Percent',
-                showline: false
-              }
-            };
+      var lineGraphLayout = {
+        title: 'Productivity Rating over Time',
+        xaxis: {
+          title: '{}s  ', // fix this
+          showgrid: false,
+          zeroline: false
+        },
+        yaxis: {
+          title: 'Percent',
+          showline: false
+        }
+      };
 
-            var lineGraphData = [prodOverTime, trace2];
+      var lineGraphData = [prodOverTime, trace2];
 
-            Plotly.newPlot('lineGraph', lineGraphData, lineGraphLayout);
-        </script>
+      Plotly.newPlot('lineGraph', lineGraphData, lineGraphLayout);
+		</script>
 	</body>
 </html>
