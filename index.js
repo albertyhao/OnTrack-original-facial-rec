@@ -53,6 +53,24 @@ app.get('/timer.js', (req, res, next) => {
 	res.sendFile(filePath);
 });
 
+app.get('/restrictions', (req, res, next) => {
+	console.log('restrictions')
+	var filePath = path.join(__dirname, './restrictions.html')
+	res.sendFile(filePath);
+});
+
+app.get('/restrictions.css', (req, res, next) => {
+	console.log('restrictions')
+	var filePath = path.join(__dirname, './restrictions.css')
+	res.sendFile(filePath);
+});
+
+app.get('/restrictions.js', (req, res, next) => {
+	console.log('restrictions')
+	var filePath = path.join(__dirname, './restrictions.js')
+	res.sendFile(filePath);
+});
+
 app.get('/home.css', (req, res, next) => {
 	console.log('home')
 	var filePath = path.join(__dirname, './home.css')
