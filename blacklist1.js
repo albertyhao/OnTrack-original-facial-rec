@@ -468,25 +468,6 @@ exports.badSites =
 [
     {
         "protocol": "http",
-        "domain": "www.netflix.com",
-        "path": null,
-        "subdomain": "www",
-        "host": "netflix",
-        "tld": "com",
-        "parent_domain": "netflix.com"
-    },
-    
-    {
-        "protocol": "http",
-        "domain": "www.matchmeds.org",
-        "path": null,
-        "subdomain": "www",
-        "host": "matchmeds",
-        "tld": "org",
-        "parent_domain": "matchmeds.org"
-    },
-    {
-        "protocol": "http",
         "domain": "www.roblox.com",
         "path": null,
         "subdomain": "www",
@@ -2069,6 +2050,15 @@ exports.badSites =
         "host": "watchersweb",
         "tld": "com",
         "parent_domain": "watchersweb.com"
+    },
+    {
+        "protocol": "http",
+        "domain": "www.netflix.com",
+        "path": null,
+        "subdomain": "www",
+        "host": "netflix",
+        "tld": "com",
+        "parent_domain": "netflix.com"
     },
     {
         "protocol": "http",
