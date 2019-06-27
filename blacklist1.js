@@ -478,15 +478,6 @@ exports.badSites =
     },
     {
         "protocol": "http",
-        "domain": "www.youtube.com",
-        "path": null,
-        "subdomain": "www",
-        "host": "youtube",
-        "tld": "com",
-        "parent_domain": "youtube.com"
-    },
-    {
-        "protocol": "http",
         "domain": "www.nsaporn.com",
         "path": null,
         "subdomain": "www",
@@ -2050,15 +2041,6 @@ exports.badSites =
         "host": "watchersweb",
         "tld": "com",
         "parent_domain": "watchersweb.com"
-    },
-    {
-        "protocol": "http",
-        "domain": "www.netflix.com",
-        "path": null,
-        "subdomain": "www",
-        "host": "netflix",
-        "tld": "com",
-        "parent_domain": "netflix.com"
     },
     {
         "protocol": "http",
