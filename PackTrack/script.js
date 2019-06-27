@@ -482,7 +482,7 @@ function checkIfLoaded(){
 
   blacklist.forEach(function(badSite){
     if(location.hostname.endsWith(badSite.domain)){
-      location.href = "https://www.entredev.org/focus";
+      location.href = "http://www.entredev.org/focus";
       return;
     }
   });
@@ -490,7 +490,7 @@ function checkIfLoaded(){
     var text = document.body.textContent;
     var words = text.toLowerCase().split(' ');
     var bad = words.find(w => badWords.includes(w));
-    if(bad) location.href = "https://www.entredev.org/focus";
+    if(bad) location.href = "http://www.entredev.org/focus";
   })
 }
 
@@ -669,7 +669,7 @@ function blockByContent() {
   window.badWords.forEach(function(badWord){
     var pattern = new RegExp(badWord, 'ig');
     if(pattern.test(siteText)) {
-      location.href = "https://www.entredev.org/focus";
+      location.href = "http://www.entredev.org/focus";
       return;
     }
   });
@@ -681,7 +681,7 @@ function sendMessage() {
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function() {
     if (req.readyState != 4) { return; }
-    location.href = "https://www.entredev.org/focus";
+    location.href = "http://www.entredev.org/focus";
   }
   req.send();
 }
