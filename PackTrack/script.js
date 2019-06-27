@@ -482,6 +482,7 @@ function checkIfLoaded(){
 
   blacklist.forEach(function(badSite){
     if(location.hostname.endsWith(badSite.domain)){
+      console.log("yay success!!!");
       location.href = "http://www.entredev.org/focus";
       return;
     }
