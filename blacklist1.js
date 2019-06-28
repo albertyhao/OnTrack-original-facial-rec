@@ -478,6 +478,16 @@ exports.badSites =
     },
     {
         "protocol": "http",
+        "domain": "www.netflix.com",
+        "path": null,
+        "subdomain": "www",
+        "host": "netflix",
+        "tld": "com",
+        "parent_domain": "netflix.com"
+
+    },
+    {
+        "protocol": "http",
         "domain": "www.nsaporn.com",
         "path": null,
         "subdomain": "www",
