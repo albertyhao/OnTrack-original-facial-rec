@@ -49,30 +49,7 @@
     </div>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/blacklist.js"></script>
-    <script>
-      function addNewBlacklist() {
-  var req = new XMLHttpRequest();
-  req.open('POST', '/blacklist', true);
-  console.log("1");
-  req.setRequestHeader('content-type', 'application/json');
-  req.onreadystatechange = function(){
-    if(req.readyState != 4){
-      return;
-    }
-    console.log(req.response);
-
-  }
-  req.send(JSON.stringify({
-    protocol: 'http',
-    domain: location.href,
-    path: null,
-    subdomain: 'www',
-    host: null,
-    tld: null,
-    parentDomain: null
-  }))
-  document.getElementById("addToBlacklist").addEventListener("click", addNewBlacklist);
-    </script>
+    
   </body>
 </html>
 blacklist
