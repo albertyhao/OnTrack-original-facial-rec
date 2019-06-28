@@ -5,6 +5,7 @@ var blacklistItemNumber = 2; // sets the unique numbered id for each list item
 function addNewBlacklist() {
   var req = new XMLHttpRequest();
   req.open('POST', '/blacklist1', true);
+  console.log("1");
   req.setRequestHeader('content-type', 'application/json');
   req.onreadystatechange = function(){
     if(req.readyState != 4){
