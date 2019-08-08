@@ -468,15 +468,6 @@ exports.badSites =
 [
     {
         "protocol": "http",
-        "domain": "www.matchmeds.org",
-        "path": null,
-        "subdomain": "www",
-        "host": "matchmeds",
-        "tld": "org",
-        "parent_domain": "matchmeds.org"
-    },
-    {
-        "protocol": "http",
         "domain": "www.roblox.com",
         "path": null,
         "subdomain": "www",
@@ -487,12 +478,13 @@ exports.badSites =
     },
     {
         "protocol": "http",
-        "domain": "www.youtube.com",
+        "domain": "www.netflix.com",
         "path": null,
         "subdomain": "www",
-        "host": "youtube",
+        "host": "netflix",
         "tld": "com",
-        "parent_domain": "youtube.com"
+        "parent_domain": "netflix.com"
+
     },
     {
         "protocol": "http",
