@@ -62,4 +62,4 @@ typings/
 # sublime project files
 *.sublime*
 package-lock.json
-createPareto.js
+_createPareto.js
